@@ -33,14 +33,24 @@ export function BeforeAfterImage({
   return (
     <div
       ref={ref}
+      role="slider"
+      tabIndex={0}
+      aria-label={`${beforeLabel} と ${afterLabel} の比較スライダー`}
+      aria-valuemin={0}
+      aria-valuemax={100}
+      aria-valuenow={Math.round(pos)}
       className={cn(
-        "relative aspect-[4/5] w-full select-none overflow-hidden bg-white/5",
+        "relative aspect-[4/5] w-full select-none overflow-hidden bg-white/5 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-blue/40",
         rounded,
         className,
       )}
       onMouseMove={(e) => e.buttons === 1 && move(e.clientX)}
       onTouchMove={(e) => move(e.touches[0].clientX)}
       onClick={(e) => move(e.clientX)}
+      onKeyDown={(e) => {
+        if (e.key === "ArrowLeft") setPos((p) => Math.max(0, p - 5));
+        if (e.key === "ArrowRight") setPos((p) => Math.min(100, p + 5));
+      }}
     >
       {/* AFTER（背面・全面） */}
       {/* eslint-disable-next-line @next/next/no-img-element */}

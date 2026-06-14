@@ -14,6 +14,9 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { HeroSection } from "@/components/HeroSection";
 import { CTAButton } from "@/components/CTAButton";
 import { Card } from "@/components/ui/card";
+import { TrustSection } from "@/components/TrustSection";
+import { FaqSection } from "@/components/FaqSection";
+import { FaqJsonLd } from "@/components/JsonLd";
 import { PLANS } from "@/lib/payment/checkout";
 
 const STEPS = [
@@ -52,6 +55,7 @@ const BUZZ = [
 export default function Home() {
   return (
     <>
+      <FaqJsonLd />
       <SiteHeader />
       <main className="flex-1">
         <HeroSection />
@@ -133,6 +137,9 @@ export default function Home() {
           </div>
         </section>
 
+        {/* 選ばれる理由 */}
+        <TrustSection />
+
         {/* 料金ティザー */}
         <section className="mx-auto max-w-2xl px-4 py-8">
           <Card className="text-center">
@@ -167,6 +174,9 @@ export default function Home() {
             </div>
           </Card>
         </section>
+
+        {/* FAQ */}
+        <FaqSection />
 
         {/* 最終CTA */}
         <section className="mx-auto max-w-2xl px-4 pb-4">
