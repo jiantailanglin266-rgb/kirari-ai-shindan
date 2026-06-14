@@ -7,6 +7,16 @@
 /** 運勢ランク。SSS〜C。低くてもネガティブにしないこと。 */
 export type Rank = "SSS" | "SS" | "S" | "A" | "B" | "C";
 
+/** 人相タイプのレア度（バズ要素）。 */
+export type Rarity = {
+  /** 出現率（%） */
+  percent: number;
+  /** ★の数 1〜5 */
+  stars: number;
+  /** ラベル（ノーマル/レア/激レア/超激レア） */
+  label: string;
+};
+
 /** 詳細スコア＝運勢（すべて 0〜100）。 */
 export type DetailScores = {
   /** 恋愛運 */
@@ -91,6 +101,8 @@ export type DiagnosisResult = {
   motetype: string;
   motetypeEmoji: string;
   motetypeDescription: string;
+  /** 人相タイプのレア度（出現率・★） */
+  rarity: Rarity;
   /** 一言の鑑定コメント */
   catchCopy: string;
   scores: DetailScores;

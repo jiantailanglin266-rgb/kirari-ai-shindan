@@ -3,8 +3,8 @@ import { ShieldCheck, Zap, Smartphone, Lock } from "lucide-react";
 const POINTS = [
   {
     icon: Zap,
-    title: "登録不要・1日1回無料",
-    desc: "面倒な会員登録なし。写真1枚で今すぐ鑑定できます。",
+    title: "完全無料・登録不要",
+    desc: "会員登録も課金もなし。写真1枚で何回でも鑑定できます。",
   },
   {
     icon: Lock,

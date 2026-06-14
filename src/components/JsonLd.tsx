@@ -43,26 +43,12 @@ export function SiteJsonLd() {
         inLanguage: "ja",
         browserRequirements: "Requires JavaScript",
         description: SITE.description,
-        offers: [
-          {
-            "@type": "Offer",
-            price: "0",
-            priceCurrency: "JPY",
-            name: "無料鑑定",
-          },
-          {
-            "@type": "Offer",
-            price: "500",
-            priceCurrency: "JPY",
-            name: "1回鑑定",
-          },
-          {
-            "@type": "Offer",
-            price: "980",
-            priceCurrency: "JPY",
-            name: "プレミアム鑑定",
-          },
-        ],
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "JPY",
+          name: "完全無料",
+        },
       },
     ],
   };

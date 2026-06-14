@@ -112,7 +112,7 @@ export function HeroSection() {
             無料で鑑定する 🔮
           </CTAButton>
           <p className="text-xs text-ink-soft">
-            1日1回無料 / 登録不要 / エンタメ占い
+            完全無料 / 何回でもOK / 登録不要 / エンタメ占い
           </p>
         </motion.div>
       </div>

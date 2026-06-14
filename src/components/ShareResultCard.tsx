@@ -2,28 +2,28 @@
 
 import { useRef, useState } from "react";
 import { toPng } from "html-to-image";
-import { Download, Share2 } from "lucide-react";
+import { Download, Share2, Link2, Check } from "lucide-react";
 import type { DiagnosisResult } from "@/types/diagnosis";
 import { Button } from "@/components/ui/button";
 import { SITE } from "@/lib/site";
+import { buildShareUrl } from "@/lib/share";
 
 const SITE_NAME = SITE.name;
-const SITE_URL = `${SITE.url}/`;
 
 export function ShareResultCard({ result }: { result: DiagnosisResult }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [busy, setBusy] = useState(false);
+  const [copied, setCopied] = useState(false);
 
+  const shareUrl = buildShareUrl(SITE.url, result);
   const hashtagText = result.hashtags.map((h) => `#${h}`).join(" ");
-  const shareText = `私の人相は「${result.rank}ランク・${result.motetype}」でした！\n総合運勢スコア ${result.totalScore}点🔮\nあなたの人相タイプは？\n${hashtagText}`;
+  const shareText = `${result.shareText}\n${hashtagText}`;
+  const stars = "★".repeat(result.rarity.stars) + "☆".repeat(5 - result.rarity.stars);
 
   async function buildPng(): Promise<string | null> {
     if (!cardRef.current) return null;
     try {
-      return await toPng(cardRef.current, {
-        pixelRatio: 2,
-        cacheBust: true,
-      });
+      return await toPng(cardRef.current, { pixelRatio: 2, cacheBust: true });
     } catch (e) {
       console.error("toPng failed", e);
       return null;
@@ -37,21 +37,21 @@ export function ShareResultCard({ result }: { result: DiagnosisResult }) {
     if (!dataUrl) return;
     const a = document.createElement("a");
     a.href = dataUrl;
-    a.download = `kirari-result-${result.rank}.png`;
+    a.download = `ninso-${result.motetype}.png`;
     a.click();
   }
 
   async function nativeShare() {
     const dataUrl = await buildPng();
-    // Web Share API（対応端末。画像つきシェア）
     if (dataUrl && navigator.canShare) {
       try {
         const blob = await (await fetch(dataUrl)).blob();
-        const file = new File([blob], "kirari-result.png", { type: "image/png" });
+        const file = new File([blob], "ninso-result.png", { type: "image/png" });
         if (navigator.canShare({ files: [file] })) {
           await navigator.share({
             files: [file],
             text: shareText,
+            url: shareUrl,
             title: SITE_NAME,
           });
           return;
@@ -60,20 +60,38 @@ export function ShareResultCard({ result }: { result: DiagnosisResult }) {
         /* キャンセル等は握りつぶす */
       }
     }
-    // フォールバック: 画像保存
+    // フォールバック: テキスト＋URLのみで共有
+    if (navigator.share) {
+      try {
+        await navigator.share({ text: shareText, url: shareUrl, title: SITE_NAME });
+        return;
+      } catch {
+        /* noop */
+      }
+    }
     await saveImage();
+  }
+
+  async function copyLink() {
+    try {
+      await navigator.clipboard.writeText(`${shareText}\n${shareUrl}`);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1800);
+    } catch {
+      /* noop */
+    }
   }
 
   function shareToX() {
     const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
       shareText,
-    )}&url=${encodeURIComponent(SITE_URL)}`;
+    )}&url=${encodeURIComponent(shareUrl)}`;
     window.open(url, "_blank", "noopener,noreferrer");
   }
 
   function shareToLine() {
     const url = `https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(
-      SITE_URL,
+      shareUrl,
     )}&text=${encodeURIComponent(shareText)}`;
     window.open(url, "_blank", "noopener,noreferrer");
   }
@@ -109,10 +127,19 @@ export function ShareResultCard({ result }: { result: DiagnosisResult }) {
             </div>
           </div>
 
-          <div className="relative mt-5 rounded-2xl bg-white/20 px-4 py-3 text-center backdrop-blur">
+          <div className="relative mt-4 rounded-2xl bg-white/20 px-4 py-3 text-center backdrop-blur">
             <p className="text-2xl">{result.motetypeEmoji}</p>
-            <p className="text-lg font-black">{result.motetype}</p>
-            <p className="mt-1 text-xs opacity-95">「{result.catchCopy}」</p>
+            <p className="text-xl font-black">{result.motetype}</p>
+            {/* レア度バッジ（バズ要素） */}
+            <div className="mt-1.5 inline-flex items-center gap-1.5 rounded-full bg-black/25 px-3 py-1">
+              <span className="text-xs font-black tracking-wide text-amber-200">
+                {stars}
+              </span>
+              <span className="text-[11px] font-bold">
+                {result.rarity.label}・出現率{result.rarity.percent}%
+              </span>
+            </div>
+            <p className="mt-2 text-xs opacity-95">「{result.catchCopy}」</p>
           </div>
 
           <p className="relative mt-4 text-center text-[11px] font-bold opacity-90">
@@ -126,8 +153,16 @@ export function ShareResultCard({ result }: { result: DiagnosisResult }) {
         <Button variant="primary" onClick={nativeShare} disabled={busy}>
           <Share2 className="h-4 w-4" /> シェアする
         </Button>
-        <Button variant="secondary" onClick={saveImage} disabled={busy}>
-          <Download className="h-4 w-4" /> 画像を保存
+        <Button variant="secondary" onClick={copyLink}>
+          {copied ? (
+            <>
+              <Check className="h-4 w-4" /> コピーしました
+            </>
+          ) : (
+            <>
+              <Link2 className="h-4 w-4" /> リンクをコピー
+            </>
+          )}
         </Button>
         <Button variant="outline" size="sm" onClick={shareToX}>
           𝕏 でポスト
@@ -135,9 +170,18 @@ export function ShareResultCard({ result }: { result: DiagnosisResult }) {
         <Button variant="outline" size="sm" onClick={shareToLine}>
           LINEで送る
         </Button>
+        <Button
+          variant="ghost"
+          size="sm"
+          className="col-span-2"
+          onClick={saveImage}
+          disabled={busy}
+        >
+          <Download className="h-4 w-4" /> 画像を保存（Instagram / TikTok 用）
+        </Button>
       </div>
       <p className="text-center text-xs text-ink-soft">
-        Instagram / TikTok は「画像を保存」してストーリーズや投稿でシェア🔮
+        リンクを送ると、相手にこの結果が表示されます。友達の人相も占ってみて🔮
       </p>
     </div>
   );

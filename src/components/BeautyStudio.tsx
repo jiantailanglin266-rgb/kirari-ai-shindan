@@ -1,9 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { motion } from "framer-motion";
-import { Loader2, Wand2, Lock } from "lucide-react";
+import { Loader2, Wand2 } from "lucide-react";
 import type { BeautyMode, DiagnosisResult } from "@/types/diagnosis";
 import { BEAUTY_MODES } from "@/types/diagnosis";
 import { generateBeautyImage } from "@/lib/ai/generateBeautyImage";
@@ -14,34 +13,22 @@ import { cn } from "@/lib/utils";
 export function BeautyStudio({
   result,
   beforeImage,
-  unlocked,
 }: {
   result: DiagnosisResult;
   beforeImage: string;
-  unlocked: boolean;
 }) {
   const [mode, setMode] = useState<BeautyMode>("natural");
   const [loading, setLoading] = useState(false);
-  const current = result.beautyImages.find((b) => b.mode === mode);
+  const current = result.beautyImages?.find((b) => b.mode === mode);
   const [afterUrl, setAfterUrl] = useState(current?.url ?? "/mock/beauty-natural.svg");
 
   async function selectMode(m: BeautyMode) {
-    const meta = BEAUTY_MODES.find((x) => x.mode === m);
-    const isPremium = m !== "natural";
-    if (isPremium && !unlocked) {
-      // ロック中は選択だけ反映（プレビューはぼかし側で対応）
-      setMode(m);
-      return;
-    }
     setMode(m);
     setLoading(true);
     const img = await generateBeautyImage({ mode: m, sourceImage: beforeImage });
     setAfterUrl(img.url);
     setLoading(false);
-    void meta;
   }
-
-  const lockedSelection = mode !== "natural" && !unlocked;
 
   return (
     <Card>
@@ -50,68 +37,35 @@ export function BeautyStudio({
         <CardTitle>開運フェイス スタジオ</CardTitle>
       </CardHeader>
       <p className="-mt-1 mb-3 text-sm text-ink-soft">
-        なりたい運気をタップ。AIが“開運の相”をまとった顔を生成します🔮
+        なりたい運気をタップ。AIが“開運の相”をまとった顔を生成します🔮（全モード無料）
       </p>
 
       {/* モード選択 */}
       <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
-        {BEAUTY_MODES.map((m) => {
-          const locked = m.mode !== "natural" && !unlocked;
-          return (
-            <button
-              key={m.mode}
-              onClick={() => selectMode(m.mode)}
-              className={cn(
-                "relative rounded-2xl px-2 py-2.5 text-[11px] font-bold leading-tight transition-all",
-                mode === m.mode
-                  ? "bg-brand-gradient text-white shadow-[var(--shadow-glow-pink)]"
-                  : "glass text-ink",
-              )}
-            >
-              <span className="block text-base">{m.emoji}</span>
-              {m.label}
-              {locked && (
-                <span className="absolute right-1 top-1 text-ink-soft">
-                  <Lock className="h-3 w-3" />
-                </span>
-              )}
-            </button>
-          );
-        })}
+        {BEAUTY_MODES.map((m) => (
+          <button
+            key={m.mode}
+            onClick={() => selectMode(m.mode)}
+            className={cn(
+              "relative rounded-2xl px-2 py-2.5 text-[11px] font-bold leading-tight transition-all",
+              mode === m.mode
+                ? "bg-brand-gradient text-white shadow-[var(--shadow-glow-pink)]"
+                : "glass text-ink",
+            )}
+          >
+            <span className="block text-base">{m.emoji}</span>
+            {m.label}
+          </button>
+        ))}
       </div>
 
       {/* プレビュー */}
       <div className="relative mt-4">
-        {lockedSelection ? (
-          <div className="relative">
-            <div className="blur-[7px]" aria-hidden>
-              <BeforeAfterImage
-                beforeUrl={beforeImage}
-                afterUrl={`/mock/beauty-${mode}.svg`}
-              />
-            </div>
-            <div className="absolute inset-0 grid place-items-center">
-              <Link
-                href="/pricing"
-                className="flex flex-col items-center gap-1 rounded-2xl bg-white/10 px-5 py-4 text-center shadow-lg"
-              >
-                <Lock className="h-5 w-5 text-brand-purple" />
-                <span className="text-sm font-black text-ink">
-                  このモードはプレミアムで解放
-                </span>
-                <span className="text-xs font-bold text-brand-purple underline">
-                  プランを見る →
-                </span>
-              </Link>
-            </div>
-          </div>
-        ) : loading ? (
+        {loading ? (
           <div className="grid aspect-[4/5] w-full place-items-center rounded-3xl glass">
             <div className="text-center">
               <Loader2 className="mx-auto h-8 w-8 animate-spin text-brand-purple" />
-              <p className="mt-2 text-sm font-bold text-ink-soft">
-                AIが生成中…✨
-              </p>
+              <p className="mt-2 text-sm font-bold text-ink-soft">AIが生成中…✨</p>
             </div>
           </div>
         ) : (

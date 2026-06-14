@@ -4,27 +4,65 @@ import {
   type BeautyImage,
   type DiagnosisResult,
   type Rank,
+  type Rarity,
 } from "@/types/diagnosis";
 import { clampScore } from "@/lib/utils";
 
 /** いちばん知りたい運（任意）。 */
 export type Focus = "love" | "money" | "all";
 
-/** 人相タイプ（漢字・全12種）。読み付き。 */
+/**
+ * 人相タイプ（漢字・全12種）。
+ * weight = 出現率(%)。合計100。レアなタイプほど出にくく、出たら自慢できる＝拡散。
+ */
 const FACE_TYPES = [
-  { name: "福相", emoji: "🍑", desc: "福を呼び込む、誰からも好かれる愛され人相。笑うと運気が上がる。" },
-  { name: "龍相", emoji: "🐉", desc: "強い上昇気流をまとう、出世とカリスマの大器の相。" },
-  { name: "鳳眼", emoji: "🦚", desc: "気品と鋭い直感。芸術・人気運に恵まれる華やかな相。" },
-  { name: "慈愛相", emoji: "🌸", desc: "包容力で人を癒やす、人徳にあふれた温かな相。" },
-  { name: "智将相", emoji: "🦉", desc: "知略と冷静さを備えた、参謀タイプの聡明な相。" },
-  { name: "大器晩成相", emoji: "🌅", desc: "人生の後半で大きく花ひらく、底力のある相。" },
-  { name: "金運相", emoji: "💰", desc: "お金に好かれ、コツコツ財を成していく堅実な相。" },
-  { name: "天稟相", emoji: "⭐", desc: "生まれ持った華で、自然と人を惹きつける才能の相。" },
-  { name: "桃花相", emoji: "🌷", desc: "恋愛と良縁に恵まれる、モテ運の強い華やかな相。" },
-  { name: "武人相", emoji: "🔥", desc: "行動力と勝負強さに満ちた、頼れる行動派の相。" },
-  { name: "仙風相", emoji: "🌙", desc: "浮世離れした独自の魅力を放つ、神秘的な相。" },
-  { name: "商才相", emoji: "🎴", desc: "機を見て利を生む、ひらめきと商才に富んだ相。" },
+  { name: "福相", emoji: "🍑", weight: 18, desc: "福を呼び込む、誰からも好かれる愛され人相。笑うと運気が上がる。" },
+  { name: "慈愛相", emoji: "🌸", weight: 14, desc: "包容力で人を癒やす、人徳にあふれた温かな相。" },
+  { name: "智将相", emoji: "🦉", weight: 12, desc: "知略と冷静さを備えた、参謀タイプの聡明な相。" },
+  { name: "桃花相", emoji: "🌷", weight: 11, desc: "恋愛と良縁に恵まれる、モテ運の強い華やかな相。" },
+  { name: "金運相", emoji: "💰", weight: 10, desc: "お金に好かれ、コツコツ財を成していく堅実な相。" },
+  { name: "商才相", emoji: "🎴", weight: 9, desc: "機を見て利を生む、ひらめきと商才に富んだ相。" },
+  { name: "武人相", emoji: "🔥", weight: 8, desc: "行動力と勝負強さに満ちた、頼れる行動派の相。" },
+  { name: "鳳眼", emoji: "🦚", weight: 6, desc: "気品と鋭い直感。芸術・人気運に恵まれる華やかな相。" },
+  { name: "大器晩成相", emoji: "🌅", weight: 5, desc: "人生の後半で大きく花ひらく、底力のある相。" },
+  { name: "天稟相", emoji: "⭐", weight: 4, desc: "生まれ持った華で、自然と人を惹きつける才能の相。" },
+  { name: "仙風相", emoji: "🌙", weight: 2, desc: "浮世離れした独自の魅力を放つ、神秘的な相。" },
+  { name: "龍相", emoji: "🐉", weight: 1, desc: "強い上昇気流をまとう、出世とカリスマの大器。最高峰の超激レア相。" },
 ];
+
+/** 出現率からレア度（★とラベル）を求める。 */
+function rarityFromWeight(weight: number): Rarity {
+  let stars: number;
+  let label: string;
+  if (weight <= 2) {
+    stars = 5;
+    label = "超激レア";
+  } else if (weight <= 5) {
+    stars = 4;
+    label = "激レア";
+  } else if (weight <= 9) {
+    stars = 3;
+    label = "レア";
+  } else if (weight <= 13) {
+    stars = 2;
+    label = "アンコモン";
+  } else {
+    stars = 1;
+    label = "ノーマル";
+  }
+  return { percent: weight, stars, label };
+}
+
+/** 重み付きでタイプを抽選。 */
+function pickWeightedType() {
+  const total = FACE_TYPES.reduce((s, t) => s + t.weight, 0);
+  let r = Math.random() * total;
+  for (const t of FACE_TYPES) {
+    r -= t.weight;
+    if (r <= 0) return t;
+  }
+  return FACE_TYPES[0];
+}
 
 const CATCH_COPIES = [
   "ひと目で場の空気を変える、主役級の運気をまとった相。",
@@ -121,11 +159,12 @@ function rankFromScore(score: number): Rank {
 }
 
 function buildBeautyImages(): BeautyImage[] {
+  // 完全無料: すべてのモードを開放。
   return BEAUTY_MODES.map((m) => ({
     mode: m.mode,
     label: m.label,
     description: m.description,
-    premium: m.mode !== "natural",
+    premium: false,
     url: `/mock/beauty-${m.mode}.svg`,
   }));
 }
@@ -134,7 +173,8 @@ function buildBeautyImages(): BeautyImage[] {
 export function generateMockDiagnosis(focus: Focus = "all"): DiagnosisResult {
   const totalScore = rand(68, 96);
   const rank = rankFromScore(totalScore);
-  const type = pick(FACE_TYPES);
+  const type = pickWeightedType();
+  const rarity = rarityFromWeight(type.weight);
 
   const base = totalScore;
   const jitter = () => clampScore(base + rand(-12, 10));
@@ -165,6 +205,7 @@ export function generateMockDiagnosis(focus: Focus = "all"): DiagnosisResult {
     motetype: type.name,
     motetypeEmoji: type.emoji,
     motetypeDescription: type.desc,
+    rarity,
     catchCopy: pick(CATCH_COPIES),
     scores,
     celebrityVibe: pick(FACE_POINTS),
@@ -188,8 +229,8 @@ export function generateMockDiagnosis(focus: Focus = "all"): DiagnosisResult {
       .sort(() => Math.random() - 0.5)
       .slice(0, 3),
     beautyImages: buildBeautyImages(),
-    shareText: `私の人相は「${rank}ランク・${type.name}」でした！あなたの人相タイプは？`,
-    hashtags: ["人相鑑定NEON", "人相学", "顔占い", "AI占い", "開運"],
+    shareText: `私の人相は【${type.name}】(出現率${rarity.percent}%・${rarity.label})でした！総合運勢${totalScore}点🔮 あなたの人相タイプは？`,
+    hashtags: ["人相鑑定NEON", "AI人相占い", `${type.name}`, "無料占い", "顔タイプ診断"],
     todayLuck: {
       score: rand(72, 99),
       message: pick(TODAY_LUCK),

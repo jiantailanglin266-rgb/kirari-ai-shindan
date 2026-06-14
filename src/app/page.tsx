@@ -1,4 +1,3 @@
-import Link from "next/link";
 import {
   Camera,
   Wand2,
@@ -18,7 +17,6 @@ import { TrustSection } from "@/components/TrustSection";
 import { FaqSection } from "@/components/FaqSection";
 import { StickyCta } from "@/components/StickyCta";
 import { FaqJsonLd } from "@/components/JsonLd";
-import { PLANS } from "@/lib/payment/checkout";
 
 const STEPS = [
   { icon: Camera, title: "写真をアップ", desc: "自撮りでもOK。1枚あれば鑑定できます。" },
@@ -141,37 +139,24 @@ export default function Home() {
         {/* 選ばれる理由 */}
         <TrustSection />
 
-        {/* 料金ティザー */}
+        {/* 完全無料バナー */}
         <section className="mx-auto max-w-2xl px-4 py-8">
           <Card className="text-center">
             <span className="inline-flex items-center gap-1 rounded-full bg-brand-gradient px-3 py-1 text-xs font-bold text-white">
-              <Sparkles className="h-3 w-3" /> 無料ではじめる
+              <Sparkles className="h-3 w-3" /> 完全無料
             </span>
             <h2 className="mt-3 text-xl font-black text-ink">
-              基本鑑定はずっと無料
+              ぜんぶ無料。<span className="text-gradient">何回でも</span>鑑定OK
             </h2>
             <p className="mt-1 text-sm text-ink-soft">
-              総合運勢・人相タイプ・簡易アドバイス・シェアカードまで無料。
-              <br />
-              もっと深く知りたい人はプレミアム鑑定へ。
+              総合運勢・詳細運勢・人相タイプ・開運アドバイス・開運フェイス・シェアカードまで、
+              <br className="hidden sm:block" />
+              登録もお金も不要。気になる運を何度でも占えます。
             </p>
-            <div className="mt-4 flex items-center justify-center gap-2 text-sm font-bold text-ink">
-              {PLANS.map((p) => (
-                <span key={p.id} className="rounded-full bg-white/10 px-3 py-1">
-                  {p.name} ¥{p.price.toLocaleString()}
-                </span>
-              ))}
-            </div>
-            <div className="mt-5 flex flex-col items-center gap-2">
+            <div className="mt-5 flex justify-center">
               <CTAButton href="/upload" size="lg" className="w-full max-w-xs">
                 無料で鑑定する 🔮
               </CTAButton>
-              <Link
-                href="/pricing"
-                className="text-xs font-bold text-brand-purple underline"
-              >
-                料金プランの詳細を見る
-              </Link>
             </div>
           </Card>
         </section>

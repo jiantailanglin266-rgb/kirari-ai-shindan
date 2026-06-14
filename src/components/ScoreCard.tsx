@@ -31,7 +31,14 @@ export function ScoreCard({ result }: { result: DiagnosisResult }) {
           <p className="text-xl font-black text-ink">
             {result.motetypeEmoji} {result.motetype}
           </p>
-          <p className="mt-0.5 text-xs text-ink-soft">{result.celebrityVibe}</p>
+          <span className="mt-1 inline-flex items-center gap-1 rounded-full bg-black/30 px-2.5 py-0.5 text-[11px] font-black">
+            <span className="text-amber-300">
+              {"★".repeat(result.rarity.stars)}
+            </span>
+            <span className="text-ink">
+              {result.rarity.label}・出現率{result.rarity.percent}%
+            </span>
+          </span>
         </div>
       </div>
 
