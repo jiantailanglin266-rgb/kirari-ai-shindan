@@ -6,34 +6,34 @@ import { cn } from "@/lib/utils";
 
 const RANK_STYLES: Record<Rank, { ring: string; text: string; glow: string }> = {
   SSS: {
-    ring: "from-[#ffe08a] via-[#ff4ecd] to-[#b06bff]",
-    text: "text-[#ffe08a]",
-    glow: "shadow-[0_0_44px_-4px_rgba(255,215,106,0.95)]",
+    ring: "from-[#e6ff3a] via-[#ff2bd6] to-[#b14bff]",
+    text: "text-[#e6ff3a]",
+    glow: "shadow-[0_0_48px_-4px_rgba(230,255,58,0.9)]",
   },
   SS: {
-    ring: "from-[#ff9ec7] via-[#b06bff] to-[#22d3ee]",
-    text: "text-[#ff8ad9]",
-    glow: "shadow-[0_0_40px_-6px_rgba(176,107,255,0.9)]",
+    ring: "from-[#ff2bd6] via-[#b14bff] to-[#00eaff]",
+    text: "text-[#ff5ce0]",
+    glow: "shadow-[0_0_44px_-6px_rgba(255,43,214,0.9)]",
   },
   S: {
-    ring: "from-[#c4b5fd] via-[#b06bff] to-[#22d3ee]",
-    text: "text-[#c9acff]",
-    glow: "shadow-[0_0_34px_-6px_rgba(176,107,255,0.85)]",
+    ring: "from-[#b14bff] via-[#7c1fff] to-[#00eaff]",
+    text: "text-[#c98aff]",
+    glow: "shadow-[0_0_38px_-6px_rgba(177,75,255,0.9)]",
   },
   A: {
-    ring: "from-[#a7f3d0] via-[#5eead4] to-[#22d3ee]",
-    text: "text-[#6ef0d8]",
-    glow: "shadow-[0_0_30px_-6px_rgba(94,234,212,0.85)]",
+    ring: "from-[#2bffd6] via-[#00eaff] to-[#b14bff]",
+    text: "text-[#3bffe0]",
+    glow: "shadow-[0_0_34px_-6px_rgba(43,255,214,0.85)]",
   },
   B: {
-    ring: "from-[#ffd1e8] via-[#ff8ad9] to-[#b06bff]",
-    text: "text-[#ff9ec7]",
-    glow: "shadow-[0_0_28px_-6px_rgba(255,158,199,0.85)]",
+    ring: "from-[#ff2bd6] via-[#ff5ce0] to-[#b14bff]",
+    text: "text-[#ff8ae6]",
+    glow: "shadow-[0_0_30px_-6px_rgba(255,43,214,0.8)]",
   },
   C: {
-    ring: "from-[#7dd3fc] via-[#38bdf8] to-[#5eead4]",
-    text: "text-[#7dd3fc]",
-    glow: "shadow-[0_0_28px_-6px_rgba(125,211,252,0.85)]",
+    ring: "from-[#00eaff] via-[#38bdf8] to-[#2bffd6]",
+    text: "text-[#5cf0ff]",
+    glow: "shadow-[0_0_30px_-6px_rgba(0,234,255,0.85)]",
   },
 };
 

@@ -1,24 +1,24 @@
 @import "tailwindcss";
 
 /* ============================================================
-   人相鑑定 NEON — Design System
-   ネオン看板トンマナ / ダーク背景 × 発光 / Y2K / 東洋占術
+   人相鑑定 NEON — Design System (CYBERPUNK)
+   漆黒 × エレクトリックネオン / グリッド / スキャンライン
    ============================================================ */
 
 @theme {
-  /* ネオンカラー */
-  --color-brand-pink: #ff4ecd; /* マゼンタ */
-  --color-brand-pink-soft: #3a1430;
-  --color-brand-purple: #b06bff; /* パープル */
-  --color-brand-purple-soft: #241640;
-  --color-brand-blue: #22d3ee; /* シアン */
-  --color-brand-blue-soft: #08323d;
-  --color-brand-mint: #5eead4;
-  --color-brand-gold: #ffd76a;
+  /* サイバーパンク・ネオンカラー */
+  --color-brand-pink: #ff2bd6; /* ホットマゼンタ */
+  --color-brand-pink-soft: #2a0a26;
+  --color-brand-purple: #b14bff; /* エレクトリックパープル */
+  --color-brand-purple-soft: #190a33;
+  --color-brand-blue: #00eaff; /* エレクトリックシアン */
+  --color-brand-blue-soft: #042b34;
+  --color-brand-mint: #2bffd6; /* ネオンティール */
+  --color-brand-gold: #e6ff3a; /* アシッドライム */
 
-  /* ダーク背景上の文字（ink=明るい） */
-  --color-ink: #eaf6ff;
-  --color-ink-soft: #93a9c4;
+  /* 漆黒上の文字（ink=明色・わずかにシアン寄り） */
+  --color-ink: #eafdff;
+  --color-ink-soft: #8aa6c2;
 
   --font-sans: var(--font-rounded), "Hiragino Maru Gothic ProN", "Yu Gothic",
     sans-serif;
@@ -26,16 +26,17 @@
 
   --radius-xl2: 1.75rem;
 
-  --shadow-glow-pink: 0 0 24px -2px rgba(255, 78, 205, 0.7),
-    0 8px 30px -10px rgba(255, 78, 205, 0.5);
-  --shadow-glow-purple: 0 0 24px -2px rgba(176, 107, 255, 0.7),
-    0 8px 30px -10px rgba(176, 107, 255, 0.5);
-  --shadow-card: 0 18px 50px -22px rgba(0, 0, 0, 0.8),
-    0 0 0 1px rgba(120, 200, 255, 0.06);
+  --shadow-glow-pink: 0 0 28px -2px rgba(255, 43, 214, 0.85),
+    0 0 60px -16px rgba(255, 43, 214, 0.55);
+  --shadow-glow-purple: 0 0 28px -2px rgba(177, 75, 255, 0.85),
+    0 0 60px -16px rgba(0, 234, 255, 0.45);
+  --shadow-card: 0 18px 50px -22px rgba(0, 0, 0, 0.9),
+    0 0 0 1px rgba(0, 234, 255, 0.1);
 
   --animate-float: float 6s ease-in-out infinite;
   --animate-shimmer: shimmer 2.4s linear infinite;
   --animate-flicker: flicker 4s linear infinite;
+  --animate-grid: gridmove 18s linear infinite;
 }
 
 @keyframes float {
@@ -71,7 +72,20 @@
   20%,
   24%,
   55% {
-    opacity: 0.55;
+    opacity: 0.5;
+  }
+}
+
+@keyframes gridmove {
+  0% {
+    background-position:
+      0 0,
+      0 0;
+  }
+  100% {
+    background-position:
+      0 40px,
+      40px 0;
   }
 }
 
@@ -80,94 +94,144 @@ html {
   scroll-padding-top: 80px;
 }
 
-/* ダーク × 縦スリット看板背景 */
+/* 漆黒 × ネオングリッド × スキャンライン 背景 */
 .app-bg {
-  background-color: #070d12;
+  position: relative;
+  background-color: #04060c;
   background-image:
     radial-gradient(
-      900px 480px at 12% -8%,
-      rgba(176, 107, 255, 0.22),
+      820px 460px at 8% -6%,
+      rgba(177, 75, 255, 0.28),
       transparent 60%
     ),
     radial-gradient(
-      900px 520px at 100% 4%,
-      rgba(34, 211, 238, 0.18),
+      820px 520px at 100% 2%,
+      rgba(0, 234, 255, 0.22),
       transparent 55%
     ),
     radial-gradient(
-      900px 700px at 50% 115%,
-      rgba(255, 78, 205, 0.16),
+      900px 720px at 50% 116%,
+      rgba(255, 43, 214, 0.22),
       transparent 60%
     ),
-    repeating-linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0.022) 0px,
-      rgba(255, 255, 255, 0.022) 1px,
-      transparent 1px,
-      transparent 13px
-    ),
-    linear-gradient(180deg, #0a141c 0%, #070f15 50%, #050a0f 100%);
+    linear-gradient(180deg, #06090f 0%, #04060c 55%, #03040a 100%);
   background-attachment: fixed;
 }
 
-/* ダーク・ガラスモーフィズム */
+/* ネオングリッド（奥行きのある格子）＋スキャンライン */
+.app-bg::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(0, 234, 255, 0.05) 0px,
+      rgba(0, 234, 255, 0.05) 1px,
+      transparent 1px,
+      transparent 42px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 43, 214, 0.045) 0px,
+      rgba(255, 43, 214, 0.045) 1px,
+      transparent 1px,
+      transparent 42px
+    );
+  mask-image: linear-gradient(180deg, transparent 0%, #000 25%, #000 100%);
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    #000 25%,
+    #000 100%
+  );
+}
+
+/* スキャンライン */
+.app-bg::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.16) 0px,
+    rgba(0, 0, 0, 0.16) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  opacity: 0.5;
+}
+
+/* ダーク・ガラスモーフィズム（テック感のあるシアン縁） */
 .glass {
-  background: rgba(16, 26, 38, 0.55);
-  backdrop-filter: blur(16px) saturate(130%);
-  -webkit-backdrop-filter: blur(16px) saturate(130%);
-  border: 1px solid rgba(130, 210, 255, 0.14);
+  background: rgba(10, 18, 30, 0.55);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border: 1px solid rgba(0, 234, 255, 0.16);
+  box-shadow: inset 0 0 0 1px rgba(177, 75, 255, 0.06);
 }
 
 .glass-strong {
-  background: rgba(13, 22, 34, 0.8);
-  backdrop-filter: blur(20px) saturate(140%);
-  -webkit-backdrop-filter: blur(20px) saturate(140%);
-  border: 1px solid rgba(130, 210, 255, 0.2);
+  background: rgba(8, 14, 24, 0.82);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid rgba(0, 234, 255, 0.24);
 }
 
-/* ネオングラデーション文字（シアン→マゼンタ） */
+/* ネオングラデーション文字（シアン→パープル→マゼンタ） */
 .text-gradient {
-  background: linear-gradient(100deg, #4fe3ff 0%, #b06bff 50%, #ff4ecd 100%);
+  background: linear-gradient(100deg, #00eaff 0%, #b14bff 50%, #ff2bd6 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  filter: drop-shadow(0 0 10px rgba(176, 107, 255, 0.5));
+  filter: drop-shadow(0 0 12px rgba(0, 234, 255, 0.55));
 }
 
 /* ネオン発光テキスト */
 .neon-cyan {
-  color: #d5f7ff;
+  color: #c8fbff;
   text-shadow:
-    0 0 4px #22d3ee,
-    0 0 12px #22d3ee,
-    0 0 26px #0ea5e9;
+    0 0 4px #00eaff,
+    0 0 14px #00eaff,
+    0 0 30px #00b8d4;
 }
 .neon-pink {
-  color: #ffe0f5;
+  color: #ffd6f5;
   text-shadow:
-    0 0 4px #ff4ecd,
-    0 0 12px #ff4ecd,
-    0 0 28px #db2777;
+    0 0 4px #ff2bd6,
+    0 0 14px #ff2bd6,
+    0 0 32px #d40fa8;
 }
 .neon-purple {
-  color: #f0e4ff;
+  color: #ecdcff;
   text-shadow:
-    0 0 4px #b06bff,
-    0 0 14px #b06bff,
-    0 0 30px #7c3aed;
+    0 0 4px #b14bff,
+    0 0 16px #b14bff,
+    0 0 34px #7c1fff;
+}
+.neon-lime {
+  color: #f2ffc4;
+  text-shadow:
+    0 0 4px #e6ff3a,
+    0 0 14px #c6ff00;
 }
 
 /* ネオン枠（発光ボーダー） */
 .neon-frame {
-  border: 1.5px solid rgba(176, 107, 255, 0.7);
+  border: 1.5px solid rgba(0, 234, 255, 0.8);
   box-shadow:
-    0 0 12px rgba(176, 107, 255, 0.5),
-    inset 0 0 12px rgba(176, 107, 255, 0.25);
+    0 0 14px rgba(0, 234, 255, 0.6),
+    0 0 28px rgba(177, 75, 255, 0.35),
+    inset 0 0 14px rgba(0, 234, 255, 0.25);
 }
 
 /* メインのネオングラデ背景（ボタン等） */
 .bg-brand-gradient {
-  background: linear-gradient(100deg, #ff4ecd 0%, #b06bff 52%, #22d3ee 100%);
+  background: linear-gradient(100deg, #ff2bd6 0%, #b14bff 50%, #00eaff 100%);
   background-size: 160% 160%;
 }
 
@@ -175,7 +239,7 @@ html {
   background: linear-gradient(
     110deg,
     transparent 30%,
-    rgba(255, 255, 255, 0.55) 50%,
+    rgba(255, 255, 255, 0.6) 50%,
     transparent 70%
   );
   background-size: 200% 100%;
@@ -201,6 +265,6 @@ html {
   height: 10px;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(176, 107, 255, 0.45);
+  background: linear-gradient(180deg, #00eaff, #b14bff);
   border-radius: 999px;
 }

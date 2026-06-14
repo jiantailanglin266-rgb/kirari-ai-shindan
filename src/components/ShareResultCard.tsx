@@ -86,7 +86,7 @@ export function ShareResultCard({ result }: { result: DiagnosisResult }) {
           className="relative overflow-hidden rounded-[28px] p-6 text-white"
           style={{
             background:
-              "linear-gradient(135deg,#ff4ecd 0%,#b06bff 50%,#22d3ee 100%)",
+              "linear-gradient(135deg,#ff2bd6 0%,#b14bff 50%,#00eaff 100%)",
           }}
         >
           <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-white/20 blur-lg" />

@@ -105,7 +105,7 @@ export function HeroSection() {
               className="p-5 text-white"
               style={{
                 background:
-                  "linear-gradient(135deg,#ff4ecd 0%,#b06bff 50%,#22d3ee 100%)",
+                  "linear-gradient(135deg,#ff2bd6 0%,#b14bff 50%,#00eaff 100%)",
               }}
             >
               <p className="text-center text-xs font-bold opacity-90">

@@ -189,7 +189,7 @@ export function UploadBox() {
           type="checkbox"
           checked={agreed}
           onChange={(e) => setAgreed(e.target.checked)}
-          className="mt-0.5 h-5 w-5 shrink-0 accent-[#b06bff]"
+          className="mt-0.5 h-5 w-5 shrink-0 accent-[#b14bff]"
         />
         <span className="text-sm text-ink">
           <Link href="/terms" className="font-bold text-brand-purple underline">

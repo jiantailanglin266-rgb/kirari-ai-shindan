@@ -46,8 +46,8 @@ export function RadarChart({
     <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
       <defs>
         <linearGradient id="radar-fill" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#ff6fb5" stopOpacity="0.55" />
-          <stop offset="100%" stopColor="#60a5fa" stopOpacity="0.45" />
+          <stop offset="0%" stopColor="#ff2bd6" stopOpacity="0.5" />
+          <stop offset="100%" stopColor="#00eaff" stopOpacity="0.4" />
         </linearGradient>
       </defs>
 
@@ -57,7 +57,7 @@ export function RadarChart({
           key={i}
           points={poly}
           fill="none"
-          stroke="rgba(167,139,250,0.22)"
+          stroke="rgba(0,234,255,0.18)"
           strokeWidth={1}
         />
       ))}
@@ -72,7 +72,7 @@ export function RadarChart({
             y1={cy}
             x2={p.x}
             y2={p.y}
-            stroke="rgba(167,139,250,0.2)"
+            stroke="rgba(177,75,255,0.22)"
             strokeWidth={1}
           />
         );
@@ -82,9 +82,10 @@ export function RadarChart({
       <motion.polygon
         points={valuePath}
         fill="url(#radar-fill)"
-        stroke="#a78bfa"
+        stroke="#00eaff"
         strokeWidth={2.5}
         strokeLinejoin="round"
+        style={{ filter: "drop-shadow(0 0 6px rgba(0,234,255,0.7))" }}
         initial={{ scale: 0, opacity: 0, transformOrigin: `${cx}px ${cy}px` }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ type: "spring", stiffness: 120, damping: 14 }}
@@ -92,7 +93,7 @@ export function RadarChart({
 
       {/* 頂点ドット */}
       {valuePoints.map((p, i) => (
-        <circle key={i} cx={p.x} cy={p.y} r={3.5} fill="#ff6fb5" />
+        <circle key={i} cx={p.x} cy={p.y} r={3.5} fill="#ff2bd6" />
       ))}
 
       {/* ラベル */}

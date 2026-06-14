@@ -115,7 +115,7 @@ export function AnalysisLoading() {
                   background:
                     state === "todo"
                       ? "rgba(167,139,250,0.25)"
-                      : "linear-gradient(100deg,#ff6fb5,#a78bfa)",
+                      : "linear-gradient(100deg,#ff2bd6,#b14bff)",
                 }}
               >
                 {state === "done" ? (
