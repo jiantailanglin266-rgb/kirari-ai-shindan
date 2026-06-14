@@ -1,4 +1,5 @@
 import type { DiagnosisResult } from "@/types/diagnosis";
+import { getSlugByName } from "@/lib/faceTypes";
 
 /* ============================================================
    結果のシェア用エンコード/デコード（バズの核）
@@ -41,9 +42,10 @@ export function decodeResult(s: string): DiagnosisResult | null {
   }
 }
 
-/** 共有URLを組み立てる。 */
+/** 共有URLを組み立てる（タイプ別OGページ /r/<slug>/ を使う）。 */
 export function buildShareUrl(baseUrl: string, r: DiagnosisResult): string {
-  const u = `${baseUrl.replace(/\/$/, "")}/result/`;
+  const slug = getSlugByName(r.motetype);
+  const u = `${baseUrl.replace(/\/$/, "")}/r/${slug}/`;
   return `${u}?${PARAM}=${encodeResult(r)}`;
 }
 

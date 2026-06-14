@@ -14,6 +14,7 @@ import {
   deleteUploadedImage,
 } from "@/lib/store";
 import { generateMockDiagnosis } from "@/lib/mock/diagnosis";
+import { getTypeBySlug } from "@/lib/faceTypes";
 import { readSharedResult } from "@/lib/share";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScoreCard } from "@/components/ScoreCard";
@@ -48,7 +49,11 @@ const RADAR_LABELS: Record<string, string> = {
   charm: "魅力運",
 };
 
-export function ResultView() {
+export function ResultView({
+  fallbackTypeSlug,
+}: {
+  fallbackTypeSlug?: string;
+}) {
   const router = useRouter();
   const [result, setResult] = useState<DiagnosisResult | null>(null);
   const [beforeImage, setBeforeImage] = useState<string>("/mock/beauty-natural.svg");
@@ -63,7 +68,15 @@ export function ResultView() {
       setShared(true);
       return;
     }
-    // 2) 通常: セッションの結果、なければデモ生成
+    // 2) タイプ別ページ(/r/<slug>)を直接開いた場合は、そのタイプの結果を表示
+    if (fallbackTypeSlug) {
+      const ft = getTypeBySlug(fallbackTypeSlug);
+      const r = generateMockDiagnosis("all", ft);
+      setResult(r);
+      setShared(true);
+      return;
+    }
+    // 3) 通常: セッションの結果、なければデモ生成
     let r = loadResult();
     if (!r) {
       r = generateMockDiagnosis("all");
@@ -72,7 +85,7 @@ export function ResultView() {
     setResult(r);
     const img = loadImage();
     if (img) setBeforeImage(img);
-  }, []);
+  }, [fallbackTypeSlug]);
 
   function reDiagnose() {
     resetAll();
