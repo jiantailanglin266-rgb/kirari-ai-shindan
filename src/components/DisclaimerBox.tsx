@@ -11,14 +11,14 @@ export function DisclaimerBox({
   return (
     <div
       className={cn(
-        "flex items-start gap-3 rounded-2xl bg-white/55 border border-white px-4 py-3 text-sm text-ink-soft",
+        "flex items-start gap-3 rounded-2xl bg-white/5 border border-white/15 px-4 py-3 text-sm text-ink-soft",
         className,
       )}
     >
       <Sparkles className="mt-0.5 h-4 w-4 shrink-0 text-brand-purple" />
       <p className="leading-relaxed">
         {children ??
-          "診断はエンタメ目的です。あなたの魅力をポジティブに可視化するAI診断であり、医学的・科学的・職業的な評価ではありません。"}
+          "本鑑定はエンタメ目的です。AIが人相学をモチーフにあなたの運勢をポジティブに読み解くもので、医学的・科学的・職業的な評価ではありません。"}
       </p>
     </div>
   );

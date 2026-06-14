@@ -43,7 +43,7 @@ export function PricingCard({
       <div
         className={cn(
           "h-full rounded-[calc(var(--radius-xl2)-2px)] p-6",
-          plan.highlight ? "bg-white" : "glass",
+          plan.highlight ? "glass-strong" : "glass",
         )}
       >
         {plan.badge && (
@@ -52,7 +52,7 @@ export function PricingCard({
               "inline-block rounded-full px-3 py-1 text-xs font-bold",
               plan.highlight
                 ? "bg-brand-gradient text-white"
-                : "bg-white/70 text-brand-purple",
+                : "bg-white/10 text-brand-purple",
             )}
           >
             {plan.badge}
@@ -93,7 +93,7 @@ export function PricingCard({
               <Check className="h-4 w-4" /> 解放しました！
             </>
           ) : (
-            "このプランで診断する"
+            "このプランで鑑定する"
           )}
         </Button>
         <p className="mt-2 text-center text-[11px] text-ink-soft">

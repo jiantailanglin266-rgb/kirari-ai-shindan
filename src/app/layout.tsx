@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { M_PLUS_Rounded_1c } from "next/font/google";
+import { M_PLUS_Rounded_1c, Yuji_Syuku } from "next/font/google";
 import "./globals.css";
 
 const rounded = M_PLUS_Rounded_1c({
@@ -9,27 +9,34 @@ const rounded = M_PLUS_Rounded_1c({
   display: "swap",
 });
 
-const SITE_NAME = "Kirari AI 顔診断";
+const brush = Yuji_Syuku({
+  variable: "--font-brush",
+  subsets: ["latin"],
+  weight: ["400"],
+  display: "swap",
+});
+
+const SITE_NAME = "人相鑑定 NEON";
 
 export const metadata: Metadata = {
   title: {
-    default: `${SITE_NAME} | AIがあなたの魅力を診断`,
+    default: `${SITE_NAME} | AIが顔から運勢を読み解く`,
     template: `%s | ${SITE_NAME}`,
   },
   description:
-    "顔写真をアップするだけで、モテタイプ・顔面魅力度・垢抜けポイント・AI美化画像を一瞬でレポート化。エンタメ目的のポジティブAI診断。",
+    "顔写真をアップするだけで、AIが東洋の人相学であなたの運勢・人相タイプ・恋愛運・金運・開運ポイントを一瞬で鑑定。ネオンに輝くエンタメ人相占い。",
   applicationName: SITE_NAME,
-  keywords: ["AI顔診断", "顔面偏差値", "モテ診断", "垢抜け診断", "AI盛れ顔"],
+  keywords: ["人相学", "人相占い", "顔占い", "AI占い", "運勢診断", "開運"],
   openGraph: {
-    title: `${SITE_NAME} | AIがあなたの魅力を診断`,
+    title: `${SITE_NAME} | AIが顔から運勢を読み解く`,
     description:
-      "モテタイプ・顔面魅力度・垢抜けポイント・AI美化画像を一瞬でレポート化。",
+      "AIが東洋の人相学で運勢・人相タイプ・恋愛運・金運・開運ポイントを鑑定。",
     type: "website",
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#fbcfe8",
+  themeColor: "#070d12",
   width: "device-width",
   initialScale: 1,
 };
@@ -40,7 +47,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja" className={`${rounded.variable} h-full antialiased`}>
+    <html
+      lang="ja"
+      className={`${rounded.variable} ${brush.variable} h-full antialiased`}
+    >
       <body className="app-bg min-h-full flex flex-col font-sans text-ink">
         {children}
       </body>

@@ -26,8 +26,8 @@ export default function PrivacyPage() {
 
         <Card className="mt-4">
           <p className="text-sm leading-relaxed text-ink-soft">
-            Kirari
-            AI顔診断（以下「本サービス」）は、ユーザーのプライバシーを尊重し、個人情報・画像データを適切に取り扱います。
+            人相鑑定
+            NEON（以下「本サービス」）は、ユーザーのプライバシーを尊重し、個人情報・画像データを適切に取り扱います。
           </p>
 
           <LegalSection title="1. 取得する情報">

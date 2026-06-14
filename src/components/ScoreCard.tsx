@@ -17,7 +17,7 @@ export function ScoreCard({ result }: { result: DiagnosisResult }) {
         animate={{ opacity: 1, y: 0 }}
         className="relative text-sm font-bold text-ink-soft"
       >
-        顔面魅力度スコア
+        総合運勢スコア
       </motion.p>
 
       <div className="relative mt-2 flex flex-col items-center">
@@ -27,7 +27,7 @@ export function ScoreCard({ result }: { result: DiagnosisResult }) {
       <div className="relative mt-4 flex items-center justify-center gap-4">
         <RankBadge rank={result.rank} label={result.rankLabel} />
         <div className="text-left">
-          <p className="text-xs font-bold text-ink-soft">あなたのモテタイプ</p>
+          <p className="text-xs font-bold text-ink-soft">あなたの人相タイプ</p>
           <p className="text-xl font-black text-ink">
             {result.motetypeEmoji} {result.motetype}
           </p>
@@ -39,7 +39,7 @@ export function ScoreCard({ result }: { result: DiagnosisResult }) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.6 }}
-        className="relative mt-4 rounded-2xl bg-white/60 px-4 py-3 text-base font-bold text-ink"
+        className="relative mt-4 rounded-2xl bg-white/10 px-4 py-3 text-base font-bold text-ink"
       >
         「{result.catchCopy}」
       </motion.p>

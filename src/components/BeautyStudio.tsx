@@ -47,10 +47,10 @@ export function BeautyStudio({
     <Card>
       <CardHeader>
         <Wand2 className="h-5 w-5 text-brand-pink" />
-        <CardTitle>AI美化スタジオ</CardTitle>
+        <CardTitle>開運フェイス スタジオ</CardTitle>
       </CardHeader>
       <p className="-mt-1 mb-3 text-sm text-ink-soft">
-        なりたい雰囲気をタップ。AIが“盛れた未来”を生成します🪄
+        なりたい運気をタップ。AIが“開運の相”をまとった顔を生成します🔮
       </p>
 
       {/* モード選択 */}
@@ -93,7 +93,7 @@ export function BeautyStudio({
             <div className="absolute inset-0 grid place-items-center">
               <Link
                 href="/pricing"
-                className="flex flex-col items-center gap-1 rounded-2xl bg-white/85 px-5 py-4 text-center shadow-lg"
+                className="flex flex-col items-center gap-1 rounded-2xl bg-white/10 px-5 py-4 text-center shadow-lg"
               >
                 <Lock className="h-5 w-5 text-brand-purple" />
                 <span className="text-sm font-black text-ink">
@@ -132,7 +132,7 @@ export function BeautyStudio({
       </div>
 
       <p className="mt-3 text-center text-[11px] text-ink-soft">
-        ※ 現在はデモ画像です。画像生成APIを接続すると実写の美化結果に切り替わります。
+        ※ 現在はデモ画像です。画像生成APIを接続すると、実写ベースの開運フェイスに切り替わります。
       </p>
     </Card>
   );

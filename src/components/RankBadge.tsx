@@ -6,34 +6,34 @@ import { cn } from "@/lib/utils";
 
 const RANK_STYLES: Record<Rank, { ring: string; text: string; glow: string }> = {
   SSS: {
-    ring: "from-[#ffe08a] via-[#ff6fb5] to-[#a78bfa]",
-    text: "text-[#7c3aed]",
-    glow: "shadow-[0_0_40px_-6px_rgba(245,196,81,0.9)]",
+    ring: "from-[#ffe08a] via-[#ff4ecd] to-[#b06bff]",
+    text: "text-[#ffe08a]",
+    glow: "shadow-[0_0_44px_-4px_rgba(255,215,106,0.95)]",
   },
   SS: {
-    ring: "from-[#ff9ec7] via-[#a78bfa] to-[#60a5fa]",
-    text: "text-[#db2777]",
-    glow: "shadow-[0_0_36px_-8px_rgba(167,139,250,0.8)]",
+    ring: "from-[#ff9ec7] via-[#b06bff] to-[#22d3ee]",
+    text: "text-[#ff8ad9]",
+    glow: "shadow-[0_0_40px_-6px_rgba(176,107,255,0.9)]",
   },
   S: {
-    ring: "from-[#c4b5fd] via-[#a78bfa] to-[#60a5fa]",
-    text: "text-[#7c3aed]",
-    glow: "shadow-[0_0_30px_-8px_rgba(167,139,250,0.7)]",
+    ring: "from-[#c4b5fd] via-[#b06bff] to-[#22d3ee]",
+    text: "text-[#c9acff]",
+    glow: "shadow-[0_0_34px_-6px_rgba(176,107,255,0.85)]",
   },
   A: {
-    ring: "from-[#a7f3d0] via-[#5eead4] to-[#60a5fa]",
-    text: "text-[#0d9488]",
-    glow: "shadow-[0_0_26px_-8px_rgba(94,234,212,0.7)]",
+    ring: "from-[#a7f3d0] via-[#5eead4] to-[#22d3ee]",
+    text: "text-[#6ef0d8]",
+    glow: "shadow-[0_0_30px_-6px_rgba(94,234,212,0.85)]",
   },
   B: {
-    ring: "from-[#ffd1e8] via-[#ff9ec7] to-[#fbcfe8]",
-    text: "text-[#db2777]",
-    glow: "shadow-[0_0_24px_-8px_rgba(255,158,199,0.7)]",
+    ring: "from-[#ffd1e8] via-[#ff8ad9] to-[#b06bff]",
+    text: "text-[#ff9ec7]",
+    glow: "shadow-[0_0_28px_-6px_rgba(255,158,199,0.85)]",
   },
   C: {
-    ring: "from-[#bae6fd] via-[#7dd3fc] to-[#a7f3d0]",
-    text: "text-[#0284c7]",
-    glow: "shadow-[0_0_24px_-8px_rgba(125,211,252,0.7)]",
+    ring: "from-[#7dd3fc] via-[#38bdf8] to-[#5eead4]",
+    text: "text-[#7dd3fc]",
+    glow: "shadow-[0_0_28px_-6px_rgba(125,211,252,0.85)]",
   },
 };
 
@@ -65,8 +65,11 @@ export function RankBadge({
           dims,
         )}
       >
-        <div className="grid h-full w-full place-items-center rounded-full bg-white/90">
-          <span className={cn("font-black tracking-tight", style.text)}>
+        <div className="grid h-full w-full place-items-center rounded-full bg-[#0a121b]">
+          <span
+            className={cn("font-black tracking-tight", style.text)}
+            style={{ textShadow: "0 0 10px currentColor" }}
+          >
             {rank}
           </span>
         </div>

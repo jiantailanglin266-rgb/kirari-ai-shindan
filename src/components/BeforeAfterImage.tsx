@@ -34,7 +34,7 @@ export function BeforeAfterImage({
     <div
       ref={ref}
       className={cn(
-        "relative aspect-[4/5] w-full select-none overflow-hidden bg-white/40",
+        "relative aspect-[4/5] w-full select-none overflow-hidden bg-white/5",
         rounded,
         className,
       )}
@@ -66,7 +66,7 @@ export function BeforeAfterImage({
           className="absolute inset-0 h-full w-full object-cover"
           draggable={false}
         />
-        <span className="absolute left-3 top-3 rounded-full bg-white/80 px-3 py-1 text-xs font-bold text-ink">
+        <span className="absolute left-3 top-3 rounded-full bg-white/10 px-3 py-1 text-xs font-bold text-ink">
           {beforeLabel}
         </span>
       </div>

@@ -4,7 +4,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { ResultView } from "@/components/ResultView";
 
 export const metadata: Metadata = {
-  title: "診断結果",
+  title: "鑑定結果",
 };
 
 export default function ResultPage() {

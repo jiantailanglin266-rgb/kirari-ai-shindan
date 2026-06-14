@@ -10,10 +10,10 @@ const buttonVariants = cva(
         primary:
           "bg-brand-gradient text-white shadow-[var(--shadow-glow-pink)] hover:shadow-[var(--shadow-glow-purple)] hover:brightness-[1.04]",
         secondary:
-          "glass-strong text-ink hover:bg-white/90 border border-white",
+          "glass-strong text-ink hover:bg-white/10 border border-white/15",
         outline:
-          "border-2 border-brand-purple/40 text-ink bg-white/40 hover:bg-white/70",
-        ghost: "text-ink hover:bg-white/50",
+          "border-2 border-brand-purple/40 text-ink bg-white/5 hover:bg-white/10",
+        ghost: "text-ink hover:bg-white/5",
         gold: "text-[#5b4406] shadow-[0_10px_30px_-10px_rgba(245,196,81,0.8)] hover:brightness-105 bg-[linear-gradient(100deg,#ffe08a,#f5c451)]",
       },
       size: {

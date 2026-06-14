@@ -7,15 +7,15 @@ import { PricingCard } from "@/components/PricingCard";
 import { Card } from "@/components/ui/card";
 
 const COMPARE: { label: string; free: boolean; premium: boolean }[] = [
-  { label: "総合スコア & ランク", free: true, premium: true },
-  { label: "モテタイプ診断", free: true, premium: true },
+  { label: "総合運勢 & ランク", free: true, premium: true },
+  { label: "人相タイプ鑑定", free: true, premium: true },
   { label: "簡易アドバイス", free: true, premium: true },
   { label: "シェアカード", free: true, premium: true },
-  { label: "詳細スコア8項目", free: false, premium: true },
-  { label: "AI美化画像（全モード）", free: false, premium: true },
-  { label: "芸能人風 雰囲気診断", free: false, premium: true },
-  { label: "恋愛詳細診断", free: false, premium: true },
-  { label: "垢抜けプラン & プロフ改善", free: false, premium: true },
+  { label: "詳細運勢8項目", free: false, premium: true },
+  { label: "開運フェイス（全モード）", free: false, premium: true },
+  { label: "人相の深掘り鑑定", free: false, premium: true },
+  { label: "恋愛運・金運の詳細", free: false, premium: true },
+  { label: "開運プラン & プロフ改善", free: false, premium: true },
 ];
 
 export function PricingView() {
@@ -31,7 +31,7 @@ export function PricingView() {
       <header className="text-center">
         <h1 className="text-3xl font-black text-ink">料金プラン</h1>
         <p className="mt-2 text-sm text-ink-soft">
-          基本診断はずっと無料。もっと深く知りたい人だけプレミアムへ✨
+          基本鑑定はずっと無料。もっと深く視てほしい人だけプレミアムへ🔮
         </p>
       </header>
 
@@ -43,17 +43,17 @@ export function PricingView() {
           <div className="pb-2 text-center font-black text-gradient">有料</div>
           {COMPARE.map((row) => (
             <div key={row.label} className="contents">
-              <div className="border-t border-white/70 py-2 text-ink">
+              <div className="border-t border-white/10 py-2 text-ink">
                 {row.label}
               </div>
-              <div className="grid place-items-center border-t border-white/70 py-2">
+              <div className="grid place-items-center border-t border-white/10 py-2">
                 {row.free ? (
                   <Check className="h-4 w-4 text-brand-mint" strokeWidth={3} />
                 ) : (
                   <X className="h-4 w-4 text-ink-soft/40" />
                 )}
               </div>
-              <div className="grid place-items-center border-t border-white/70 py-2">
+              <div className="grid place-items-center border-t border-white/10 py-2">
                 {row.premium ? (
                   <Check className="h-4 w-4 text-brand-pink" strokeWidth={3} />
                 ) : (
@@ -75,7 +75,7 @@ export function PricingView() {
       <p className="text-center text-xs text-ink-soft">
         現在の決済はデモ（モック）です。Stripe接続後に実決済へ切り替わります。
         <br />
-        診断はエンタメ目的のサービスです。
+        本鑑定はエンタメ目的のサービスです。
       </p>
     </div>
   );

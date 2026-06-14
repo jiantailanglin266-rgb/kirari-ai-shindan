@@ -5,14 +5,14 @@ import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check } from "lucide-react";
 import { analyzeFace } from "@/lib/ai/analyzeFace";
-import { loadImage, loadGender, saveResult } from "@/lib/store";
+import { loadImage, loadFocus, saveResult } from "@/lib/store";
 
 const STEPS = [
-  "AIが顔の印象を分析中…",
-  "魅力度スコアを計算中…",
-  "モテタイプを診断中…",
-  "垢抜けポイントを抽出中…",
-  "AI美化画像を生成中…",
+  "顔の輪郭と各パーツを読み取り中…",
+  "目・鼻・口から運勢を観相中…",
+  "人相タイプを鑑定中…",
+  "総合運勢スコアを算出中…",
+  "開運ポイントを抽出中…",
 ];
 
 const STEP_MS = 1100;
@@ -31,7 +31,7 @@ export function AnalysisLoading() {
       router.replace("/upload");
       return;
     }
-    const gender = loadGender();
+    const focus = loadFocus();
 
     // ステップ演出
     const timers: ReturnType<typeof setTimeout>[] = [];
@@ -43,7 +43,7 @@ export function AnalysisLoading() {
 
     // 解析（モック）と最低演出時間を両立
     Promise.all([
-      analyzeFace({ image, gender }),
+      analyzeFace({ image, focus }),
       new Promise((r) => setTimeout(r, minDuration)),
     ]).then(([result]) => {
       saveResult(result);
@@ -87,14 +87,14 @@ export function AnalysisLoading() {
           aria-hidden
         >
           <motion.div
-            className="absolute left-0 right-0 h-8 bg-white/40 blur-md"
+            className="absolute left-0 right-0 h-8 bg-white/5 blur-md"
             animate={{ top: ["-20%", "120%"] }}
             transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
           />
         </motion.div>
       </div>
 
-      <h1 className="text-xl font-black text-ink">AIがあなたの魅力を解析中</h1>
+      <h1 className="text-xl font-black text-ink">AIがあなたの人相を鑑定中</h1>
 
       {/* ステップ表示 */}
       <div className="mt-6 w-full max-w-sm space-y-2.5">
@@ -103,7 +103,7 @@ export function AnalysisLoading() {
           return (
             <motion.div
               key={s}
-              className="flex items-center gap-3 rounded-2xl bg-white/55 px-4 py-2.5 text-left"
+              className="flex items-center gap-3 rounded-2xl bg-white/5 px-4 py-2.5 text-left"
               animate={{
                 opacity: state === "todo" ? 0.5 : 1,
                 scale: state === "active" ? 1.02 : 1,

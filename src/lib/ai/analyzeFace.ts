@@ -1,5 +1,5 @@
 import type { DiagnosisResult } from "@/types/diagnosis";
-import { generateMockDiagnosis, type Gender } from "@/lib/mock/diagnosis";
+import { generateMockDiagnosis, type Focus } from "@/lib/mock/diagnosis";
 
 /* ============================================================
    顔解析エントリポイント
@@ -13,8 +13,8 @@ import { generateMockDiagnosis, type Gender } from "@/lib/mock/diagnosis";
 export type AnalyzeOptions = {
   /** data URL もしくはアップロード済み画像 URL */
   image?: string;
-  /** モテタイプの出し分け用（任意） */
-  gender?: Gender;
+  /** 重視する運の出し分け用（任意） */
+  focus?: Focus;
 };
 
 /** API 接続を切り替えるフラグ（環境変数で制御）。 */
@@ -26,7 +26,7 @@ export async function mockAnalyzeFace(
 ): Promise<DiagnosisResult> {
   // 解析中演出に合わせてわずかに待機（UI 側のローディングと別管理でもOK）。
   await new Promise((r) => setTimeout(r, 400));
-  return generateMockDiagnosis(opts.gender ?? "neutral");
+  return generateMockDiagnosis(opts.focus ?? "all");
 }
 
 /**

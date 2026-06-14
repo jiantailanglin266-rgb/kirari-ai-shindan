@@ -6,15 +6,15 @@ import { Download, Share2 } from "lucide-react";
 import type { DiagnosisResult } from "@/types/diagnosis";
 import { Button } from "@/components/ui/button";
 
-const SITE_NAME = "Kirari AI 顔診断";
-const SITE_URL = "https://kirari-ai.example.com"; // 本番URLに差し替え
+const SITE_NAME = "人相鑑定 NEON";
+const SITE_URL = "https://jiantailanglin266-rgb.github.io/kirari-ai-shindan/";
 
 export function ShareResultCard({ result }: { result: DiagnosisResult }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [busy, setBusy] = useState(false);
 
   const hashtagText = result.hashtags.map((h) => `#${h}`).join(" ");
-  const shareText = `私は「${result.rank}ランク・${result.motetype}」でした！\n顔面魅力度スコア ${result.totalScore}点✨\nあなたのモテタイプは？\n${hashtagText}`;
+  const shareText = `私の人相は「${result.rank}ランク・${result.motetype}」でした！\n総合運勢スコア ${result.totalScore}点🔮\nあなたの人相タイプは？\n${hashtagText}`;
 
   async function buildPng(): Promise<string | null> {
     if (!cardRef.current) return null;
@@ -86,7 +86,7 @@ export function ShareResultCard({ result }: { result: DiagnosisResult }) {
           className="relative overflow-hidden rounded-[28px] p-6 text-white"
           style={{
             background:
-              "linear-gradient(135deg,#ff8fc7 0%,#a78bfa 50%,#6aa8ff 100%)",
+              "linear-gradient(135deg,#ff4ecd 0%,#b06bff 50%,#22d3ee 100%)",
           }}
         >
           <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-white/20 blur-lg" />
@@ -94,11 +94,11 @@ export function ShareResultCard({ result }: { result: DiagnosisResult }) {
 
           <div className="relative flex items-center justify-between">
             <span className="text-sm font-bold opacity-90">{SITE_NAME}</span>
-            <span className="text-sm">✨ AI診断結果</span>
+            <span className="text-sm">🔮 AI人相鑑定</span>
           </div>
 
           <div className="relative mt-5 text-center">
-            <p className="text-xs font-bold opacity-90">顔面魅力度スコア</p>
+            <p className="text-xs font-bold opacity-90">総合運勢スコア</p>
             <p className="text-6xl font-black leading-none drop-shadow">
               {result.totalScore}
             </p>
@@ -136,7 +136,7 @@ export function ShareResultCard({ result }: { result: DiagnosisResult }) {
         </Button>
       </div>
       <p className="text-center text-xs text-ink-soft">
-        Instagram / TikTok は「画像を保存」してストーリーズや投稿でシェア🎀
+        Instagram / TikTok は「画像を保存」してストーリーズや投稿でシェア🔮
       </p>
     </div>
   );

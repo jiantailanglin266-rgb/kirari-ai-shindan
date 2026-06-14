@@ -28,25 +28,25 @@ import { CTAButton } from "@/components/CTAButton";
 import { Button } from "@/components/ui/button";
 
 const SCORE_META: { key: keyof DiagnosisResult["scores"]; label: string; emoji: string }[] = [
-  { key: "cleanliness", label: "清潔感", emoji: "🤍" },
-  { key: "eyes", label: "目元の印象", emoji: "👀" },
-  { key: "friendliness", label: "親近感", emoji: "🌸" },
-  { key: "sexiness", label: "色気", emoji: "💋" },
-  { key: "aura", label: "華やかさ", emoji: "✨" },
-  { key: "intelligence", label: "知的さ", emoji: "📚" },
-  { key: "photogenic", label: "写真映え", emoji: "📸" },
-  { key: "loveAttraction", label: "恋愛引力", emoji: "💘" },
+  { key: "love", label: "恋愛運", emoji: "💗" },
+  { key: "money", label: "金運", emoji: "💰" },
+  { key: "work", label: "仕事運", emoji: "💼" },
+  { key: "health", label: "健康運", emoji: "🌿" },
+  { key: "popularity", label: "人気運", emoji: "⭐" },
+  { key: "intellect", label: "知性", emoji: "📚" },
+  { key: "intuition", label: "直感力", emoji: "🔮" },
+  { key: "charm", label: "魅力運", emoji: "✨" },
 ];
 
 const RADAR_LABELS: Record<string, string> = {
-  cleanliness: "清潔感",
-  eyes: "目元",
-  friendliness: "親近感",
-  sexiness: "色気",
-  aura: "華やかさ",
-  intelligence: "知的さ",
-  photogenic: "写真映え",
-  loveAttraction: "恋愛引力",
+  love: "恋愛運",
+  money: "金運",
+  work: "仕事運",
+  health: "健康運",
+  popularity: "人気運",
+  intellect: "知性",
+  intuition: "直感力",
+  charm: "魅力運",
 };
 
 export function ResultView() {
@@ -60,7 +60,7 @@ export function ResultView() {
     let r = loadResult();
     if (!r) {
       // 直接アクセス時はデモ結果を生成して表示
-      r = generateMockDiagnosis("neutral");
+      r = generateMockDiagnosis("all");
       saveResult(r);
     }
     setResult(r);
@@ -76,7 +76,7 @@ export function ResultView() {
 
   function reGenerate() {
     if (!result) return;
-    const next = generateMockDiagnosis("neutral");
+    const next = generateMockDiagnosis("all");
     saveResult(next);
     setResult(next);
     if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
@@ -109,33 +109,33 @@ export function ResultView() {
         className="text-center"
       >
         <span className="inline-flex items-center gap-1 rounded-full bg-brand-gradient px-4 py-1 text-xs font-bold text-white">
-          <Sparkles className="h-3 w-3" /> 診断完了！
+          <Sparkles className="h-3 w-3" /> 鑑定完了！
         </span>
-        <h1 className="mt-2 text-2xl font-black text-ink">あなたの診断結果</h1>
+        <h1 className="mt-2 text-2xl font-black text-ink">あなたの鑑定結果</h1>
       </motion.div>
 
       {/* 総合スコア */}
       <ScoreCard result={result} />
 
-      {/* 今日のモテ運 */}
-      <Card className="flex items-center gap-4 bg-[linear-gradient(110deg,#fff0f7,#f3ecff)]">
+      {/* 今日の運勢 */}
+      <Card className="flex items-center gap-4 bg-[linear-gradient(110deg,rgba(255,78,205,0.14),rgba(34,211,238,0.12))]">
         <div className="grid h-14 w-14 shrink-0 place-items-center rounded-full bg-brand-gradient text-white">
           <Star className="h-6 w-6" />
         </div>
         <div>
           <p className="text-xs font-bold text-brand-purple">
-            今日のモテ運 {result.todayLuck.score}点
+            今日の運勢 {result.todayLuck.score}点
           </p>
           <p className="text-sm font-bold text-ink">{result.todayLuck.message}</p>
         </div>
       </Card>
 
       {/* 詳細スコア（プレミアム） */}
-      <PremiumGate unlocked={unlocked} label="詳細スコアをプレミアムで解放">
+      <PremiumGate unlocked={unlocked} label="詳細運勢をプレミアムで解放">
         <Card>
           <CardHeader>
             <Star className="h-5 w-5 text-brand-purple" />
-            <CardTitle>詳細スコア</CardTitle>
+            <CardTitle>詳細運勢（八運）</CardTitle>
           </CardHeader>
           <div className="flex justify-center">
             <RadarChart data={radarData} />
@@ -157,12 +157,12 @@ export function ResultView() {
       {/* モテタイプ & 恋愛診断 */}
       <MotetypeCard result={result} />
 
-      {/* 美容アドバイス（プレミアムで詳細） */}
-      <PremiumGate unlocked={unlocked} label="フル美容プランをプレミアムで解放">
+      {/* 開運アドバイス（プレミアムで詳細） */}
+      <PremiumGate unlocked={unlocked} label="開運プランをプレミアムで解放">
         <BeautyAdviceCard result={result} />
       </PremiumGate>
 
-      {/* AI美化スタジオ */}
+      {/* 開運フェイス スタジオ */}
       <BeautyStudio
         result={result}
         beforeImage={beforeImage}
@@ -181,9 +181,9 @@ export function ResultView() {
       {/* プレミアム導線 */}
       {!unlocked && (
         <div className="relative overflow-hidden rounded-[var(--radius-xl2)] bg-brand-gradient p-6 text-center text-white shadow-[var(--shadow-glow-purple)]">
-          <h2 className="text-xl font-black">もっと深く知りたいなら</h2>
+          <h2 className="text-xl font-black">もっと深く視てほしいなら</h2>
           <p className="mt-1 text-sm opacity-95">
-            詳細スコア・AI美化画像・恋愛詳細・垢抜けプランをぜんぶ解放✨
+            詳細運勢・開運フェイス・恋愛運/金運の詳細・開運プランをぜんぶ解放🔮
           </p>
           <div className="mt-4 flex justify-center">
             <CTAButton
@@ -192,7 +192,7 @@ export function ResultView() {
               size="lg"
               className="!text-ink"
             >
-              プレミアム診断を見る
+              プレミアム鑑定を見る
             </CTAButton>
           </div>
         </div>
@@ -201,11 +201,11 @@ export function ResultView() {
       {/* アクション */}
       <div className="grid grid-cols-1 gap-2.5">
         <CTAButton onClick={reGenerate} variant="primary" size="lg" shine={false}>
-          <RefreshCw className="h-4 w-4" /> もう一度診断する
+          <RefreshCw className="h-4 w-4" /> もう一度鑑定する
         </CTAButton>
         <div className="grid grid-cols-2 gap-2.5">
           <Button variant="secondary" onClick={reGenerate}>
-            <Rocket className="h-4 w-4" /> 別タイプで加工
+            <Rocket className="h-4 w-4" /> 別の運で観る
           </Button>
           <Button variant="secondary" onClick={reDiagnose}>
             <RefreshCw className="h-4 w-4" /> 写真を変える

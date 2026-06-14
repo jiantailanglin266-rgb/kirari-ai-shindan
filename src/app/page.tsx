@@ -17,36 +17,36 @@ import { Card } from "@/components/ui/card";
 import { PLANS } from "@/lib/payment/checkout";
 
 const STEPS = [
-  { icon: Camera, title: "写真をアップ", desc: "自撮りでもOK。1枚あれば診断できます。" },
-  { icon: Wand2, title: "AIが解析", desc: "魅力を多角的にスコア化＆タイプ診断。" },
-  { icon: ScrollText, title: "結果をレポート", desc: "垢抜けアドバイスとAI美化画像まで。" },
+  { icon: Camera, title: "写真をアップ", desc: "自撮りでもOK。1枚あれば鑑定できます。" },
+  { icon: Wand2, title: "AIが観相", desc: "顔の各パーツから運勢を読み解きます。" },
+  { icon: ScrollText, title: "運勢をレポート", desc: "開運アドバイスと開運フェイスまで。" },
 ];
 
 const FEATURES = [
-  { emoji: "📊", title: "顔面魅力度スコア", desc: "8つの観点であなたの魅力を可視化。" },
-  { emoji: "💘", title: "AIモテタイプ診断", desc: "あなたはどのモテタイプ？全12種。" },
-  { emoji: "💄", title: "垢抜けアドバイス", desc: "髪型・メイク・服装・撮り方まで提案。" },
-  { emoji: "🪄", title: "AI美化画像", desc: "韓国アイドル風〜3年後の自分まで生成。" },
-  { emoji: "💞", title: "恋愛市場価値診断", desc: "マッチングアプリ映えや本命度をチェック。" },
-  { emoji: "🎴", title: "SNSシェアカード", desc: "そのまま映える診断結果カードを保存。" },
+  { emoji: "🔮", title: "総合運勢スコア", desc: "8つの運をスコアで丸ごと可視化。" },
+  { emoji: "🐉", title: "人相タイプ鑑定", desc: "あなたはどの人相？漢字で全12種。" },
+  { emoji: "🌿", title: "開運アドバイス", desc: "髪型・眉・表情で運気を底上げ。" },
+  { emoji: "🚀", title: "開運フェイス生成", desc: "福相〜三年後の開運顔までAI生成。" },
+  { emoji: "💗", title: "恋愛運・金運レポート", desc: "出会い運や結婚運・財運まで鑑定。" },
+  { emoji: "🎴", title: "SNSシェアカード", desc: "そのまま映える鑑定結果カードを保存。" },
 ];
 
 const TYPES = [
-  "👑 王子様系",
-  "🌟 韓国俳優系",
-  "🌷 清楚ヒロイン系",
-  "💘 小悪魔アイドル系",
-  "🖤 クールビューティー系",
-  "☕ 優しそうな彼氏系",
-  "💄 韓国女優系",
-  "🏄 爽やかスポーツ系",
+  "🍑 福相",
+  "🐉 龍相",
+  "🦚 鳳眼",
+  "🌸 慈愛相",
+  "🦉 智将相",
+  "💰 金運相",
+  "🌷 桃花相",
+  "🌙 仙風相",
 ];
 
 const BUZZ = [
   { icon: Share2, title: "SNSシェア", desc: "X・Instagram・TikTok・LINE対応" },
-  { icon: Heart, title: "今日のモテ運", desc: "毎日チェックしたくなる占い要素" },
+  { icon: Heart, title: "今日の運勢", desc: "毎日チェックしたくなる開運占い" },
   { icon: Gift, title: "ガチャ風ランク演出", desc: "結果が出る瞬間がいちばん盛り上がる" },
-  { icon: RefreshCw, title: "何度でも診断", desc: "別タイプ・別角度でAI加工し放題" },
+  { icon: RefreshCw, title: "何度でも鑑定", desc: "別の運・開運フェイスで何度でも" },
 ];
 
 export default function Home() {
@@ -80,10 +80,10 @@ export default function Home() {
         {/* 診断でわかること */}
         <section className="mx-auto max-w-2xl px-4 py-6">
           <h2 className="text-center text-2xl font-black text-ink">
-            診断でわかること
+            鑑定でわかること
           </h2>
           <p className="mt-2 text-center text-sm text-ink-soft">
-            あなたの魅力を、ポジティブに丸ごと可視化✨
+            あなたの運勢を、ポジティブに丸ごと鑑定🔮
           </p>
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
             {FEATURES.map((f) => (
@@ -101,7 +101,7 @@ export default function Home() {
         {/* モテタイプ */}
         <section className="mx-auto max-w-2xl px-4 py-6">
           <h2 className="text-center text-2xl font-black text-ink">
-            あなたは<span className="text-gradient">どのモテタイプ？</span>
+            あなたは<span className="text-gradient">どの人相？</span>
           </h2>
           <div className="mt-5 flex flex-wrap justify-center gap-2">
             {TYPES.map((t) => (
@@ -140,23 +140,23 @@ export default function Home() {
               <Sparkles className="h-3 w-3" /> 無料ではじめる
             </span>
             <h2 className="mt-3 text-xl font-black text-ink">
-              基本診断はずっと無料
+              基本鑑定はずっと無料
             </h2>
             <p className="mt-1 text-sm text-ink-soft">
-              総合スコア・モテタイプ・簡易アドバイス・シェアカードまで無料。
+              総合運勢・人相タイプ・簡易アドバイス・シェアカードまで無料。
               <br />
-              もっと深く知りたい人はプレミアム診断へ。
+              もっと深く知りたい人はプレミアム鑑定へ。
             </p>
             <div className="mt-4 flex items-center justify-center gap-2 text-sm font-bold text-ink">
               {PLANS.map((p) => (
-                <span key={p.id} className="rounded-full bg-white/60 px-3 py-1">
+                <span key={p.id} className="rounded-full bg-white/10 px-3 py-1">
                   {p.name} ¥{p.price.toLocaleString()}
                 </span>
               ))}
             </div>
             <div className="mt-5 flex flex-col items-center gap-2">
               <CTAButton href="/upload" size="lg" className="w-full max-w-xs">
-                無料で診断する ✨
+                無料で鑑定する 🔮
               </CTAButton>
               <Link
                 href="/pricing"
@@ -173,10 +173,10 @@ export default function Home() {
           <div className="relative overflow-hidden rounded-[var(--radius-xl2)] bg-brand-gradient p-8 text-center text-white shadow-[var(--shadow-glow-purple)]">
             <div className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-white/20 blur-xl" />
             <h2 className="relative text-2xl font-black">
-              さっそく“盛れ未来”を見にいこう
+              さっそく“開運”を観にいこう
             </h2>
             <p className="relative mt-2 text-sm opacity-95">
-              あなたの魅力、まだ全部出しきれてないかも。
+              あなたの運、まだ全部開ききっていないかも。
             </p>
             <div className="relative mt-5 flex justify-center">
               <CTAButton
@@ -185,7 +185,7 @@ export default function Home() {
                 size="lg"
                 className="w-full max-w-xs !text-ink"
               >
-                無料で診断する ✨
+                無料で鑑定する 🔮
               </CTAButton>
             </div>
           </div>

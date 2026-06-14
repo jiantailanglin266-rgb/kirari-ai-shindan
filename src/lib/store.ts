@@ -1,7 +1,7 @@
 "use client";
 
 import type { DiagnosisResult } from "@/types/diagnosis";
-import type { Gender } from "@/lib/mock/diagnosis";
+import type { Focus } from "@/lib/mock/diagnosis";
 
 /* ============================================================
    ページ間の状態受け渡し（sessionStorage ベースの簡易ストア）
@@ -11,7 +11,7 @@ import type { Gender } from "@/lib/mock/diagnosis";
    ============================================================ */
 
 const KEY_IMAGE = "kirari:image";
-const KEY_GENDER = "kirari:gender";
+const KEY_FOCUS = "kirari:focus";
 const KEY_RESULT = "kirari:result";
 const KEY_UNLOCKED = "kirari:unlocked";
 
@@ -53,12 +53,12 @@ export function clearImage() {
   safeRemove(KEY_IMAGE);
 }
 
-/* ---- 性別（任意） ---- */
-export function saveGender(g: Gender) {
-  safeSet(KEY_GENDER, g);
+/* ---- 重視する運（任意） ---- */
+export function saveFocus(f: Focus) {
+  safeSet(KEY_FOCUS, f);
 }
-export function loadGender(): Gender {
-  return (safeGet(KEY_GENDER) as Gender) ?? "neutral";
+export function loadFocus(): Focus {
+  return (safeGet(KEY_FOCUS) as Focus) ?? "all";
 }
 
 /* ---- 診断結果 ---- */
@@ -95,6 +95,6 @@ export function deleteUploadedImage() {
 export function resetAll() {
   clearImage();
   clearResult();
-  safeRemove(KEY_GENDER);
+  safeRemove(KEY_FOCUS);
   safeRemove(KEY_UNLOCKED);
 }

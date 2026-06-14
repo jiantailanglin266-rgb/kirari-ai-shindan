@@ -20,10 +20,10 @@ export function PremiumGate({
       <div className="pointer-events-none select-none blur-[6px]" aria-hidden>
         {children}
       </div>
-      <div className="absolute inset-0 grid place-items-center rounded-[var(--radius-xl2)] bg-white/30">
+      <div className="absolute inset-0 grid place-items-center rounded-[var(--radius-xl2)] bg-white/5">
         <Link
           href="/pricing"
-          className="flex flex-col items-center gap-2 rounded-2xl bg-white/85 px-6 py-4 text-center shadow-lg"
+          className="flex flex-col items-center gap-2 rounded-2xl bg-white/10 px-6 py-4 text-center shadow-lg"
         >
           <span className="grid h-10 w-10 place-items-center rounded-full bg-brand-gradient text-white">
             <Lock className="h-5 w-5" />

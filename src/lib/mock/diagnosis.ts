@@ -7,101 +7,100 @@ import {
 } from "@/types/diagnosis";
 import { clampScore } from "@/lib/utils";
 
-export type Gender = "female" | "male" | "neutral";
+/** いちばん知りたい運（任意）。 */
+export type Focus = "love" | "money" | "all";
 
-/** モテタイプ（女性向け）。 */
-const FEMALE_TYPES = [
-  { name: "清楚ヒロイン系", emoji: "🌷", desc: "ふんわり優しい雰囲気で、誰からも好かれる正統派ヒロイン。" },
-  { name: "小悪魔アイドル系", emoji: "💘", desc: "目が合うとドキッとさせる、愛され上手の小悪魔タイプ。" },
-  { name: "韓国女優系", emoji: "💄", desc: "透明感と洗練を兼ね備えた、今っぽさ全開のK-beauty顔。" },
-  { name: "クールビューティー系", emoji: "🖤", desc: "凛とした横顔が美しい、近寄りがたい高嶺の花オーラ。" },
-  { name: "愛され妹系", emoji: "🎀", desc: "思わず守りたくなる、親しみやすさ満点のあざと可愛い系。" },
-  { name: "上品お姉さん系", emoji: "🥂", desc: "余裕と知性をまとった、憧れられる大人の魅力。" },
-];
-
-/** モテタイプ（男性向け）。 */
-const MALE_TYPES = [
-  { name: "王子様系", emoji: "👑", desc: "甘いマスクと品の良さで、みんなの理想を体現する正統派。" },
-  { name: "韓国俳優系", emoji: "🌟", desc: "透明感と色気を両立した、画面映えするトレンド顔。" },
-  { name: "爽やかスポーツ系", emoji: "🏄", desc: "健康的な清潔感で、第一印象の好感度がとにかく高い。" },
-  { name: "ミステリアスCEO系", emoji: "🕶️", desc: "知的で落ち着いた佇まい、ギャップでグッとくる実力派。" },
-  { name: "優しそうな彼氏系", emoji: "☕", desc: "安心感のある柔らかい雰囲気で、本命にされやすいタイプ。" },
-  { name: "ワイルド兄貴系", emoji: "🔥", desc: "頼れる男気と色気で、ふいに胸を高鳴らせる存在感。" },
+/** 人相タイプ（漢字・全12種）。読み付き。 */
+const FACE_TYPES = [
+  { name: "福相", emoji: "🍑", desc: "福を呼び込む、誰からも好かれる愛され人相。笑うと運気が上がる。" },
+  { name: "龍相", emoji: "🐉", desc: "強い上昇気流をまとう、出世とカリスマの大器の相。" },
+  { name: "鳳眼", emoji: "🦚", desc: "気品と鋭い直感。芸術・人気運に恵まれる華やかな相。" },
+  { name: "慈愛相", emoji: "🌸", desc: "包容力で人を癒やす、人徳にあふれた温かな相。" },
+  { name: "智将相", emoji: "🦉", desc: "知略と冷静さを備えた、参謀タイプの聡明な相。" },
+  { name: "大器晩成相", emoji: "🌅", desc: "人生の後半で大きく花ひらく、底力のある相。" },
+  { name: "金運相", emoji: "💰", desc: "お金に好かれ、コツコツ財を成していく堅実な相。" },
+  { name: "天稟相", emoji: "⭐", desc: "生まれ持った華で、自然と人を惹きつける才能の相。" },
+  { name: "桃花相", emoji: "🌷", desc: "恋愛と良縁に恵まれる、モテ運の強い華やかな相。" },
+  { name: "武人相", emoji: "🔥", desc: "行動力と勝負強さに満ちた、頼れる行動派の相。" },
+  { name: "仙風相", emoji: "🌙", desc: "浮世離れした独自の魅力を放つ、神秘的な相。" },
+  { name: "商才相", emoji: "🎴", desc: "機を見て利を生む、ひらめきと商才に富んだ相。" },
 ];
 
 const CATCH_COPIES = [
-  "ひと目で空気が変わる、主役級のきらめき。",
-  "親しみやすさの中に、確かな色気が同居してる。",
-  "見るほどに好きになる“じわ盛れ”フェイス。",
-  "清潔感とオーラのバランスが神がかってる。",
-  "ギャップで惹きつける、記憶に残る顔立ち。",
-  "あなたの魅力、まだ全部出しきれてないタイプ。",
+  "ひと目で場の空気を変える、主役級の運気をまとった相。",
+  "和やかさの奥に、芯の強さと幸運がしっかり宿っている相。",
+  "観るほどに味が出る、じわじわ運が満ちていく相。",
+  "人徳と直感のバランスが見事に整った、稀有な吉相。",
+  "ギャップで人を惹きつける、記憶に残る印象的な相。",
+  "持ち前の運、まだ全部開ききっていない伸びしろの相。",
 ];
 
-const CELEBRITY_VIBES = [
-  "透明感のある今どき俳優風",
-  "正統派アイドル風の親しみオーラ",
-  "洗練された韓国スター風",
-  "知的なアナウンサー風の好印象",
-  "ナチュラル系モデル風の抜け感",
-  "目力のある実力派女優風",
+/** 最も運勢が表れている顔のパーツ（観相のポイント）。 */
+const FACE_POINTS = [
+  "目元に、人を惹きつける強い恋愛運が表れています",
+  "鼻筋に、堅実に財を築く金運の良さが出ています",
+  "額の広さに、若いうちから運が開ける明るさが宿ります",
+  "口元に、晩年まで続く愛情運と人望が表れています",
+  "眉の流れに、対人運の良さと穏やかな人柄が出ています",
+  "輪郭の柔らかさに、周囲に恵まれる包容力が表れています",
+  "頬の張りに、人気を集める華やかな運気が出ています",
 ];
 
 const HAIRSTYLES = [
-  "顔まわりにレイヤーを入れて、輪郭をやわらかく見せるスタイル",
-  "前髪に少し動きを出して、目元の印象をぐっと引き立てるスタイル",
-  "トップにふんわり高さを出して、全体のバランスを整えるスタイル",
-  "毛先をワンカールして、清潔感と抜け感を両立するスタイル",
+  "おでこ（額）を少し見せると、運気の入り口が開いて全体運がアップ",
+  "顔まわりに動きを出すと、対人運と華やかさが引き立ちます",
+  "トップにふんわり高さを出すと、上昇運のバランスが整います",
+  "毛先を内へまとめると、金運・家庭運が安定して見えます",
 ];
 
 const EYEBROWS = [
-  "眉尻だけ軽く整えて、自然な並行〜やや上がり眉に",
-  "毛流れを上向きに整えると、目元がぱっと明るく見えます",
-  "眉頭をふんわりさせると、優しさと垢抜け感がアップ",
-  "左右の高さをそろえるだけで、印象がぐっと洗練されます",
+  "眉尻を軽く整えて自然な並行眉に。対人運がぐっと上がります",
+  "毛流れを上向きに整えると、仕事運と行動力が高まって見えます",
+  "眉頭をふんわりさせると、優しさと人望が増す相に",
+  "左右の高さをそろえると、判断運・金運のバランスが整います",
 ];
 
 const FASHION = [
-  "顔まわりに明るいカラーを置くと、肌の透明感が引き立ちます",
-  "Iラインを意識したシルエットで、すっきり洗練度アップ",
-  "首元が見えるネックラインで、清潔感と抜け感をプラス",
-  "ベーシックカラー＋差し色のバランスで好印象に",
+  "顔まわりに明るい色を置くと、運気の血色が良く見えます",
+  "差し色に紫を効かせると、直感力・人気運の後押しに",
+  "首元を見せると、対人運と清らかさ（清明相）がアップ",
+  "ベーシック＋金や白の差し色で、金運を引き寄せる装いに",
 ];
 
 const SKIN = [
-  "ツヤを少し足すだけで、健康的でみずみずしい印象に",
-  "Tゾーンの光を意識すると、立体感と清潔感が出ます",
-  "保湿で肌のキメを整えると、写真写りが格段にUP",
-  "血色感をひとさじ足すと、ぐっと親しみやすい雰囲気に",
+  "ツヤをひとさじ足すと、健康運と若々しい運気が宿ります",
+  "Tゾーンに光を意識すると、立体感と上昇運が出ます",
+  "保湿で肌のキメを整えると、運の通り道が滑らかに",
+  "血色感を足すと、人を引き寄せる親しみ運がアップ",
 ];
 
 const PHOTO_ANGLES = [
-  "カメラを目線より少し上に。自然と目が大きく華やかに写ります",
-  "斜め45度＋あご少し引きで、輪郭がシャープに見えます",
-  "やわらかい自然光を正面から。透明感がいちばん出る角度です",
-  "顔の左右で“写りのいい側”を前に出すと一気に盛れます",
+  "カメラを目線より少し上に。目元の恋愛運がいちばん映えます",
+  "斜め45度＋あご少し引きで、輪郭の晩年運が整って見えます",
+  "やわらかい自然光を正面から。清明相の透明感が際立ちます",
+  "“写りの良い側”を前に。福相の柔らかさが引き立ちます",
 ];
 
 const PROFILE_PHOTOS = [
-  "笑顔×自然光の上半身ショットが、好感度No.1のプロフ写真に",
-  "背景をすっきりさせると、あなたの表情に視線が集中します",
-  "目元がはっきり見える明るさで撮ると、信頼感が大きくUP",
-  "リラックスした自然な表情の1枚が、いちばん“会いたく”なります",
+  "笑顔×自然光の一枚で、福を呼ぶ愛され運が最大化します",
+  "背景をすっきりさせると、あなたの相の良さに視線が集まります",
+  "目元がはっきり見える明るさで、信頼運・人望が伝わります",
+  "肩の力を抜いた自然な表情が、いちばん運を引き寄せます",
 ];
 
 const IMPROVEMENT_POINTS = [
-  "今の魅力はそのままに、髪型で“抜け感”を足すと一段と垢抜けます",
-  "目元の明るさを少し意識するだけで、印象がさらに華やぎます",
-  "姿勢と表情を整えると、持ち前のオーラがもっと伝わります",
-  "写真の撮り方を変えるだけで、本来の魅力がぐっと引き出せます",
-  "清潔感のひと工夫で、第一印象の好感度がさらに伸びます",
+  "今の良い相はそのままに、額を見せると運の入り口がさらに開きます",
+  "目元を明るく保つと、恋愛運・人気運が一段と高まります",
+  "姿勢と笑顔を整えると、持ち前の吉相がもっと伝わります",
+  "口角を上げる習慣で、晩年運と人望がさらに育ちます",
+  "眉を整えるひと工夫で、対人運と第一印象が伸びます",
 ];
 
 const TODAY_LUCK = [
-  "今日は笑顔がいつも以上に魅力的に伝わる日。連絡はあなたから◎",
-  "ふとした表情に惹かれる人が現れる予感。鏡の前で笑顔の練習を",
-  "新しい髪型・メイクに挑戦すると運気アップ。垢抜けのチャンス日",
-  "落ち着いた色の服が吉。知的な魅力が際立ちます",
+  "今日は笑顔が福を呼ぶ日。連絡や挨拶はあなたから動くと吉。",
+  "直感が冴える一日。ピンときた誘いには乗ってみると good。",
+  "新しい髪型・装いで運気アップ。開運のチャンス日です。",
+  "落ち着いた色＋金の差し色が吉。金運・信頼運が高まります。",
 ];
 
 function pick<T>(arr: T[]): T {
@@ -122,46 +121,39 @@ function rankFromScore(score: number): Rank {
 }
 
 function buildBeautyImages(): BeautyImage[] {
-  // モック画像（後で generateBeautyImage() の生成結果に差し替え可能）。
-  return BEAUTY_MODES.map((m, i) => ({
+  return BEAUTY_MODES.map((m) => ({
     mode: m.mode,
     label: m.label,
     description: m.description,
     premium: m.mode !== "natural",
-    // 画面用のプレースホルダ。実装初期はグラデの SVG/外部モック。
     url: `/mock/beauty-${m.mode}.svg`,
-  })).slice(0, BEAUTY_MODES.length);
+  }));
 }
 
-/** ダミーの診断結果を生成。後で AI レスポンスに置き換え可能。 */
-export function generateMockDiagnosis(gender: Gender = "neutral"): DiagnosisResult {
+/** ダミーの鑑定結果を生成。後で AI レスポンスに置き換え可能。 */
+export function generateMockDiagnosis(focus: Focus = "all"): DiagnosisResult {
   const totalScore = rand(68, 96);
   const rank = rankFromScore(totalScore);
+  const type = pick(FACE_TYPES);
 
-  const typePool =
-    gender === "female"
-      ? FEMALE_TYPES
-      : gender === "male"
-        ? MALE_TYPES
-        : [...FEMALE_TYPES, ...MALE_TYPES];
-  const type = pick(typePool);
-
-  // 詳細スコアは総合スコアの周辺で自然にばらつかせる。
   const base = totalScore;
   const jitter = () => clampScore(base + rand(-12, 10));
 
   const scores = {
-    cleanliness: jitter(),
-    eyes: jitter(),
-    friendliness: jitter(),
-    sexiness: jitter(),
-    aura: jitter(),
-    intelligence: jitter(),
-    photogenic: jitter(),
-    loveAttraction: jitter(),
+    love: jitter(),
+    money: jitter(),
+    work: jitter(),
+    health: jitter(),
+    popularity: jitter(),
+    intellect: jitter(),
+    intuition: jitter(),
+    charm: jitter(),
   };
 
-  const motetype = type.name;
+  // 「重視する運」を少しだけ底上げ（演出）。
+  if (focus === "love") scores.love = clampScore(scores.love + rand(4, 10));
+  if (focus === "money") scores.money = clampScore(scores.money + rand(4, 10));
+
   const rankMeta = RANK_META[rank];
 
   return {
@@ -170,19 +162,19 @@ export function generateMockDiagnosis(gender: Gender = "neutral"): DiagnosisResu
     totalScore,
     rank,
     rankLabel: rankMeta.label,
-    motetype,
+    motetype: type.name,
     motetypeEmoji: type.emoji,
     motetypeDescription: type.desc,
     catchCopy: pick(CATCH_COPIES),
     scores,
-    celebrityVibe: pick(CELEBRITY_VIBES),
+    celebrityVibe: pick(FACE_POINTS),
     loveReport: {
-      firstImpression: "話しかけやすく、それでいて記憶に残る——好印象の黄金バランス。",
-      oppositeSexImpression: "一緒にいて安心できるのに、ふとした瞬間にドキッとさせる魅力。",
-      datingAppScore: `映え度 ${rand(78, 97)}%。プロフ写真次第でマッチ率はさらに伸びます。`,
-      seriousLovePotential: "“軽い人”より“本命”に選ばれやすい、信頼感のある雰囲気。",
-      approachability: `話しかけやすさ ${rand(75, 95)}%。初対面でも距離が縮まりやすいタイプ。`,
-      gapCharm: "ふだんの印象と、見せる笑顔のギャップが強い武器になります。",
+      firstImpression: "話しかけやすく、それでいて記憶に残る——好印象の黄金バランスの相。",
+      oppositeSexImpression: "安心感の奥にふとした色気。本命として惹かれられる恋愛運の持ち主。",
+      datingAppScore: `出会い運 ${rand(78, 97)}%。第一印象の良さで良縁を引き寄せます。`,
+      seriousLovePotential: "年を重ねるほど運が育つ晩年吉相。結婚運・家庭運に恵まれる相。",
+      approachability: `人付き合いの運 ${rand(75, 95)}%。初対面でも距離が縮まりやすい相。`,
+      gapCharm: "ふだんの印象と、見せる一面のギャップが大きな武器になる相です。",
     },
     beautyAdvice: {
       hairstyle: pick(HAIRSTYLES),
@@ -196,8 +188,8 @@ export function generateMockDiagnosis(gender: Gender = "neutral"): DiagnosisResu
       .sort(() => Math.random() - 0.5)
       .slice(0, 3),
     beautyImages: buildBeautyImages(),
-    shareText: `私は「${rank}ランク・${motetype}」でした！あなたのモテタイプは？`,
-    hashtags: ["AI顔診断", "顔面偏差値", "モテ診断", "垢抜け診断", "AI盛れ顔"],
+    shareText: `私の人相は「${rank}ランク・${type.name}」でした！あなたの人相タイプは？`,
+    hashtags: ["人相鑑定NEON", "人相学", "顔占い", "AI占い", "開運"],
     todayLuck: {
       score: rand(72, 99),
       message: pick(TODAY_LUCK),

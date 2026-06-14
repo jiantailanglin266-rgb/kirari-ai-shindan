@@ -21,7 +21,7 @@ export default function UploadPage() {
         </Link>
         <h1 className="text-2xl font-black text-ink">写真をアップロード</h1>
         <p className="mt-1 mb-5 text-sm text-ink-soft">
-          顔写真をアップ／撮影して、診断をはじめましょう✨
+          顔写真をアップ／撮影して、人相鑑定をはじめましょう🔮
         </p>
         <UploadBox />
       </main>
