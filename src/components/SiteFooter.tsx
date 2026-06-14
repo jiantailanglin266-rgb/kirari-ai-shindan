@@ -17,14 +17,8 @@ export function SiteFooter() {
           <Link href="/pricing" className="hover:text-brand-purple">
             料金
           </Link>
-          <Link href="/terms" className="hover:text-brand-purple">
-            利用規約
-          </Link>
           <Link href="/privacy" className="hover:text-brand-purple">
             プライバシーポリシー
-          </Link>
-          <Link href="/commerce" className="hover:text-brand-purple">
-            特定商取引法に基づく表記
           </Link>
         </nav>
         <p className="mt-4 text-[11px] text-ink-soft/80">

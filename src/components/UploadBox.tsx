@@ -183,7 +183,7 @@ export function UploadBox() {
 
       <DisclaimerBox />
 
-      {/* 利用規約同意 */}
+      {/* 同意 */}
       <label className="flex cursor-pointer items-start gap-3 rounded-2xl bg-white/5 px-4 py-3">
         <input
           type="checkbox"
@@ -192,10 +192,6 @@ export function UploadBox() {
           className="mt-0.5 h-5 w-5 shrink-0 accent-[#b14bff]"
         />
         <span className="text-sm text-ink">
-          <Link href="/terms" className="font-bold text-brand-purple underline">
-            利用規約
-          </Link>
-          と
           <Link href="/privacy" className="font-bold text-brand-purple underline">
             プライバシーポリシー
           </Link>
