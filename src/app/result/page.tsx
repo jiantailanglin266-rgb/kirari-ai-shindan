@@ -5,6 +5,7 @@ import { ResultView } from "@/components/ResultView";
 
 export const metadata: Metadata = {
   title: "鑑定結果",
+  robots: { index: false, follow: true },
 };
 
 export default function ResultPage() {

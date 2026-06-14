@@ -8,6 +8,9 @@ import { LegalSection } from "@/components/LegalSection";
 
 export const metadata: Metadata = {
   title: "プライバシーポリシー",
+  description:
+    "人相鑑定 NEONのプライバシーポリシー。アップロード画像の取り扱い・保存・削除と、安全への配慮について。",
+  alternates: { canonical: "/privacy" },
 };
 
 export default function PrivacyPage() {

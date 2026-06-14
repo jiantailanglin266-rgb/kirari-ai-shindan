@@ -6,6 +6,9 @@ import { UploadBox } from "@/components/UploadBox";
 
 export const metadata: Metadata = {
   title: "写真をアップロード",
+  description:
+    "顔写真をアップロード／撮影して、AI人相鑑定をはじめましょう。登録不要・1日1回無料。重視する運（恋愛運・金運・総合運）も選べます。",
+  alternates: { canonical: "/upload" },
 };
 
 export default function UploadPage() {

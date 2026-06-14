@@ -8,6 +8,8 @@ import { LegalSection } from "@/components/LegalSection";
 
 export const metadata: Metadata = {
   title: "利用規約",
+  description: "人相鑑定 NEONの利用規約。エンタメ目的・画像の取り扱い・禁止事項について。",
+  alternates: { canonical: "/terms" },
 };
 
 export default function TermsPage() {

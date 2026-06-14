@@ -3,6 +3,7 @@ import { AnalysisLoading } from "@/components/AnalysisLoading";
 
 export const metadata: Metadata = {
   title: "AI鑑定中",
+  robots: { index: false, follow: true },
 };
 
 export default function AnalyzingPage() {

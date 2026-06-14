@@ -33,6 +33,9 @@ export function PricingView() {
         <p className="mt-2 text-sm text-ink-soft">
           基本鑑定はずっと無料。もっと深く視てほしい人だけプレミアムへ🔮
         </p>
+        <p className="mx-auto mt-3 max-w-md rounded-full border border-brand-blue/25 bg-white/5 px-4 py-1.5 text-xs font-bold text-ink">
+          対面の人相鑑定なら数千円〜。AIなら<span className="text-gradient">まず無料</span>、詳細でもワンコイン〜。
+        </p>
       </header>
 
       {/* 無料 vs 有料 比較 */}

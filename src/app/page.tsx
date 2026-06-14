@@ -16,6 +16,7 @@ import { CTAButton } from "@/components/CTAButton";
 import { Card } from "@/components/ui/card";
 import { TrustSection } from "@/components/TrustSection";
 import { FaqSection } from "@/components/FaqSection";
+import { StickyCta } from "@/components/StickyCta";
 import { FaqJsonLd } from "@/components/JsonLd";
 import { PLANS } from "@/lib/payment/checkout";
 
@@ -200,8 +201,10 @@ export default function Home() {
             </div>
           </div>
         </section>
+        <div aria-hidden className="h-20 sm:hidden" />
       </main>
       <SiteFooter />
+      <StickyCta />
     </>
   );
 }
