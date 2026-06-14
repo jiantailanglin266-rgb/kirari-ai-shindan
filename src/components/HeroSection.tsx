@@ -3,33 +3,60 @@
 import { motion } from "framer-motion";
 import { CTAButton } from "@/components/CTAButton";
 import { BeforeAfterImage } from "@/components/BeforeAfterImage";
+import { asset } from "@/lib/asset";
 
-/** ネオン看板風の円形エンブレム（人相鑑定 NEON ロゴ）。 */
+/** ネオン発光＋グリングリン回転する人相鑑定エンブレム。 */
 function NeonEmblem() {
   return (
     <div className="relative mx-auto aspect-square w-full max-w-[340px]">
-      {/* 外周ネオンリング */}
-      <div className="absolute inset-0 rounded-full neon-frame animate-[flicker_5s_linear_infinite]" />
-      <div className="absolute inset-3 rounded-full border border-brand-blue/40 shadow-[0_0_14px_rgba(34,211,238,0.5)_inset]" />
+      {/* グリングリン回る発光ハロー（背面） */}
+      <div
+        className="absolute -inset-6 rounded-full opacity-70 blur-2xl animate-[spin_12s_linear_infinite] motion-reduce:animate-none"
+        style={{
+          background:
+            "conic-gradient(from 0deg,#00eaff,#b14bff,#ff2bd6,#00eaff)",
+        }}
+        aria-hidden
+      />
+      {/* 逆回転の細いネオンリング */}
+      <div
+        className="absolute -inset-1 rounded-full opacity-80 animate-[spin_18s_linear_infinite_reverse] motion-reduce:animate-none"
+        style={{
+          background:
+            "conic-gradient(from 90deg,transparent 0deg,#00eaff 40deg,transparent 120deg,#ff2bd6 200deg,transparent 280deg,#b14bff 330deg,transparent 360deg)",
+          WebkitMask:
+            "radial-gradient(farthest-side,transparent calc(100% - 5px),#000 calc(100% - 4px))",
+          mask: "radial-gradient(farthest-side,transparent calc(100% - 5px),#000 calc(100% - 4px))",
+        }}
+        aria-hidden
+      />
 
-      <div className="absolute inset-0 flex flex-col items-center justify-center px-8 text-center">
-        {/* 上部の福顔アイコン */}
-        <div className="mb-1 grid h-14 w-14 place-items-center rounded-full border-2 border-brand-pink shadow-[0_0_16px_rgba(255,78,205,0.7)]">
-          <span className="text-2xl">🔮</span>
-        </div>
-        {/* 上部ラベル */}
-        <span className="rounded-full border border-brand-purple/60 px-3 py-0.5 text-[10px] font-bold tracking-[0.3em] neon-purple">
-          AI 観 相
+      {/* エンブレム画像（ネオン発光パルス＋ゆらぎ） */}
+      <motion.div
+        className="relative z-10 h-full w-full animate-[neonpulse_3.6s_ease-in-out_infinite] motion-reduce:animate-none"
+        animate={{ y: [0, -8, 0] }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={asset("/hero-emblem.webp")}
+          width={760}
+          height={608}
+          alt="人相鑑定 NEON — 人相学占いのネオンエンブレム"
+          className="h-full w-full select-none rounded-full object-cover"
+          draggable={false}
+          fetchPriority="high"
+        />
+      </motion.div>
+
+      {/* 周回するスパークル（グリングリン感） */}
+      <div className="pointer-events-none absolute inset-0 animate-[spin_22s_linear_infinite] motion-reduce:animate-none">
+        <span className="absolute left-1/2 top-0 -translate-x-1/2 neon-cyan text-lg">
+          ✦
         </span>
-        {/* 中央の大きな漢字 */}
-        <h2 className="font-brush mt-1 text-5xl font-black neon-cyan">人相鑑定</h2>
-        {/* スクリプト風サブ */}
-        <p className="font-brush -mt-1 text-2xl neon-pink">人相学占い</p>
+        <span className="absolute bottom-2 right-6 neon-pink text-sm">✧</span>
+        <span className="absolute left-4 top-1/2 neon-purple text-xs">✦</span>
       </div>
-
-      {/* 星の装飾 */}
-      <span className="absolute left-6 top-1/3 neon-pink text-sm">✦</span>
-      <span className="absolute right-6 top-1/2 neon-cyan text-xs">✧</span>
     </div>
   );
 }

@@ -76,6 +76,23 @@
   }
 }
 
+/* エンブレムのネオン発光パルス（色が回るように明滅） */
+@keyframes neonpulse {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 16px rgba(0, 234, 255, 0.75))
+      drop-shadow(0 0 40px rgba(177, 75, 255, 0.5));
+  }
+  33% {
+    filter: drop-shadow(0 0 20px rgba(255, 43, 214, 0.85))
+      drop-shadow(0 0 52px rgba(0, 234, 255, 0.5));
+  }
+  66% {
+    filter: drop-shadow(0 0 20px rgba(177, 75, 255, 0.85))
+      drop-shadow(0 0 52px rgba(255, 43, 214, 0.5));
+  }
+}
+
 @keyframes gridmove {
   0% {
     background-position:
