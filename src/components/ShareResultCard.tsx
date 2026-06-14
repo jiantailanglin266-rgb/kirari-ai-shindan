@@ -5,9 +5,10 @@ import { toPng } from "html-to-image";
 import { Download, Share2 } from "lucide-react";
 import type { DiagnosisResult } from "@/types/diagnosis";
 import { Button } from "@/components/ui/button";
+import { SITE } from "@/lib/site";
 
-const SITE_NAME = "人相鑑定 NEON";
-const SITE_URL = "https://jiantailanglin266-rgb.github.io/kirari-ai-shindan/";
+const SITE_NAME = SITE.name;
+const SITE_URL = `${SITE.url}/`;
 
 export function ShareResultCard({ result }: { result: DiagnosisResult }) {
   const cardRef = useRef<HTMLDivElement>(null);

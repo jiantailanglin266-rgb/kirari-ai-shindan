@@ -1,14 +1,12 @@
 import type { NextConfig } from "next";
 
 /**
- * GitHub Pages（プロジェクトページ）公開用の設定。
- * 本番ビルド時のみ basePath = "/<repo>" を付与します。
- * dev / Vercel など別環境では NEXT_PUBLIC_BASE_PATH="" を渡せば無効化できます。
+ * 公開設定。
+ * 独自ドメイン petdogcat.jp の「ルート直下」で配信するため basePath は無し（""）。
+ * もし GitHub Pages のプロジェクトパス等のサブパスで配信したい場合は
+ * 環境変数 NEXT_PUBLIC_BASE_PATH="/kirari-ai-shindan" のように渡せば切替可能。
  */
-const repo = "kirari-ai-shindan";
-const isProd = process.env.NODE_ENV === "production";
-const basePath =
-  process.env.NEXT_PUBLIC_BASE_PATH ?? (isProd ? `/${repo}` : "");
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 const nextConfig: NextConfig = {
   output: "export", // 静的エクスポート（out/）

@@ -2,7 +2,8 @@
 export const SITE = {
   name: "人相鑑定 NEON",
   shortName: "人相鑑定NEON",
-  url: "https://jiantailanglin266-rgb.github.io/kirari-ai-shindan",
+  // 本番の公開ドメイン（独自ドメイン・ルート直下）。env で上書き可能。
+  url: process.env.NEXT_PUBLIC_SITE_ORIGIN ?? "https://petdogcat.jp",
   description:
     "顔写真をアップするだけで、AIが東洋の人相学であなたの運勢・人相タイプ・恋愛運・金運・開運ポイントを一瞬で鑑定。登録不要・スマホ最適化のエンタメ人相占い。",
   locale: "ja_JP",
