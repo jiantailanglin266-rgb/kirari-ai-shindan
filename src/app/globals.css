@@ -1,26 +1,152 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ============================================================
+   Kirari AI 顔診断 — Design System
+   韓国風 / Y2K / 近未来AI / かわいい / SNS映え
+   ============================================================ */
+
+@theme {
+  --color-brand-pink: #ff6fb5;
+  --color-brand-pink-soft: #ffd1e8;
+  --color-brand-purple: #a78bfa;
+  --color-brand-purple-soft: #e9d8fd;
+  --color-brand-blue: #60a5fa;
+  --color-brand-blue-soft: #cfe4ff;
+  --color-brand-mint: #5eead4;
+  --color-brand-gold: #f5c451;
+  --color-ink: #4a3a55;
+  --color-ink-soft: #8b7c97;
+
+  --font-sans: var(--font-rounded), "Hiragino Maru Gothic ProN", "Yu Gothic",
+    sans-serif;
+
+  --radius-xl2: 1.75rem;
+
+  --shadow-glow-pink: 0 10px 40px -10px rgba(255, 111, 181, 0.55);
+  --shadow-glow-purple: 0 10px 40px -10px rgba(167, 139, 250, 0.55);
+  --shadow-card: 0 18px 50px -20px rgba(120, 80, 170, 0.45);
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-shimmer: shimmer 2.4s linear infinite;
+  --animate-pulse-slow: pulseSlow 2.6s ease-in-out infinite;
+  --animate-spin-slow: spin 8s linear infinite;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes pulseSlow {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.04);
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+/* やわらかいグラデーション背景（ピンク→パープル→ブルー） */
+.app-bg {
+  background:
+    radial-gradient(
+      1200px 600px at 10% -10%,
+      rgba(255, 209, 232, 0.9),
+      transparent 60%
+    ),
+    radial-gradient(
+      1000px 700px at 100% 0%,
+      rgba(207, 228, 255, 0.85),
+      transparent 55%
+    ),
+    radial-gradient(
+      900px 700px at 50% 110%,
+      rgba(233, 216, 253, 0.9),
+      transparent 60%
+    ),
+    linear-gradient(180deg, #fff6fb 0%, #f6f1ff 45%, #eef5ff 100%);
+  background-attachment: fixed;
+}
+
+/* ガラスモーフィズム */
+.glass {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(22px) saturate(150%);
+  -webkit-backdrop-filter: blur(22px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+}
+
+/* グラデーションテキスト */
+.text-gradient {
+  background: linear-gradient(100deg, #ff6fb5 0%, #a78bfa 50%, #60a5fa 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* メインのグラデーションボタン背景 */
+.bg-brand-gradient {
+  background: linear-gradient(100deg, #ff6fb5 0%, #a78bfa 55%, #60a5fa 100%);
+  background-size: 160% 160%;
+}
+
+/* キラキラの装飾用 */
+.shine {
+  background: linear-gradient(
+    110deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.75) 50%,
+    transparent 70%
+  );
+  background-size: 200% 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* スクロールバーをかわいく */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(167, 139, 250, 0.4);
+  border-radius: 999px;
 }
