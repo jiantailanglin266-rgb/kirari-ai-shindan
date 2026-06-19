@@ -1,10 +1,4 @@
-import {
-  BEAUTY_MODES,
-  RANK_META,
-  type BeautyImage,
-  type DiagnosisResult,
-  type Rank,
-} from "@/types/diagnosis";
+import { RANK_META, type DiagnosisResult, type Rank } from "@/types/diagnosis";
 import { FACE_TYPES, rarityFromWeight, type FaceType } from "@/lib/faceTypes";
 import { clampScore } from "@/lib/utils";
 
@@ -116,17 +110,6 @@ function rankFromScore(score: number): Rank {
   return "C";
 }
 
-function buildBeautyImages(): BeautyImage[] {
-  // 完全無料: すべてのモードを開放。
-  return BEAUTY_MODES.map((m) => ({
-    mode: m.mode,
-    label: m.label,
-    description: m.description,
-    premium: false,
-    url: `/mock/beauty-${m.mode}.svg`,
-  }));
-}
-
 /** ダミーの鑑定結果を生成。後で AI レスポンスに置き換え可能。 */
 export function generateMockDiagnosis(
   focus: Focus = "all",
@@ -189,7 +172,6 @@ export function generateMockDiagnosis(
     improvementPoints: [...IMPROVEMENT_POINTS]
       .sort(() => Math.random() - 0.5)
       .slice(0, 3),
-    beautyImages: buildBeautyImages(),
     shareText: `私の人相は【${type.name}】(出現率${rarity.percent}%・${rarity.label})でした！総合運勢${totalScore}点🔮 あなたの人相タイプは？`,
     hashtags: ["人相鑑定NEON", "AI人相占い", `${type.name}`, "無料占い", "顔タイプ診断"],
     todayLuck: {

@@ -22,10 +22,9 @@ function fromB64Url(s: string): string {
   return decodeURIComponent(escape(atob(b64 + pad)));
 }
 
-/** 結果をURL用の文字列にエンコード（URLを軽くするため重い/不要フィールドは除外）。 */
+/** 結果をURL用の文字列にエンコード（URLを軽くするため不要フィールドは除外）。 */
 export function encodeResult(r: DiagnosisResult): string {
-  const { beautyImages: _bi, id: _id, createdAt: _ca, ...slim } = r;
-  void _bi;
+  const { id: _id, createdAt: _ca, ...slim } = r;
   void _id;
   void _ca;
   return toB64Url(JSON.stringify(slim));

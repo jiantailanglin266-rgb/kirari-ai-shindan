@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { CTAButton } from "@/components/CTAButton";
-import { BeforeAfterImage } from "@/components/BeforeAfterImage";
 import { asset } from "@/lib/asset";
 
 /** ネオン発光＋グリングリン回転する人相鑑定エンブレム。 */
@@ -148,15 +147,28 @@ export function HeroSection() {
                 <p className="text-sm font-black">福相</p>
               </div>
             </div>
-            {/* 開運フェイス サンプル */}
-            <div className="p-3">
-              <BeforeAfterImage
-                beforeUrl="/mock/beauty-natural.svg"
-                afterUrl="/mock/beauty-kpop.svg"
-                rounded="rounded-2xl"
-              />
-              <p className="mt-2 text-center text-xs font-bold text-ink-soft">
-                ← ドラッグで 現在 / 開運フェイス 🔮
+            {/* 詳細運勢サンプル */}
+            <div className="space-y-2.5 p-4">
+              {[
+                { label: "恋愛運", v: 88 },
+                { label: "金運", v: 76 },
+                { label: "仕事運", v: 82 },
+              ].map((s) => (
+                <div key={s.label}>
+                  <div className="flex items-center justify-between text-[11px] font-bold text-ink">
+                    <span>{s.label}</span>
+                    <span className="text-gradient">{s.v}</span>
+                  </div>
+                  <div className="mt-1 h-2 w-full overflow-hidden rounded-full bg-brand-purple/15">
+                    <div
+                      className="h-full rounded-full bg-brand-gradient"
+                      style={{ width: `${s.v}%` }}
+                    />
+                  </div>
+                </div>
+              ))}
+              <p className="pt-1 text-center text-[11px] font-bold text-ink-soft">
+                8つの運をまるごと鑑定 🔮
               </p>
             </div>
           </div>

@@ -69,26 +69,6 @@ export type BeautyAdvice = {
   profilePhoto: string;
 };
 
-/** 開運フェイスの生成モード。 */
-export type BeautyMode =
-  | "natural"
-  | "kpop"
-  | "model"
-  | "clear"
-  | "business"
-  | "anime"
-  | "future";
-
-/** 開運フェイス画像（モック or 生成）。 */
-export type BeautyImage = {
-  mode: BeautyMode;
-  label: string;
-  description: string;
-  url: string;
-  /** 有料機能かどうか。 */
-  premium: boolean;
-};
-
 /** 鑑定結果のメイン型。 */
 export type DiagnosisResult = {
   id: string;
@@ -112,7 +92,6 @@ export type DiagnosisResult = {
   celebrityVibe: string;
   /** 開運ポイント（必ずポジティブ変換） */
   improvementPoints: string[];
-  beautyImages: BeautyImage[];
   /** SNSシェア用テキスト */
   shareText: string;
   hashtags: string[];
@@ -133,18 +112,3 @@ export const RANK_META: Record<Rank, { label: string; tagline: string }> = {
   C: { label: "大器相", tagline: "これから伸びる、伸びしろの相" },
 };
 
-/** 開運フェイスのメタ情報。 */
-export const BEAUTY_MODES: {
-  mode: BeautyMode;
-  label: string;
-  description: string;
-  emoji: string;
-}[] = [
-  { mode: "natural", label: "自然開運", description: "ありのままに、運気をひとさじ", emoji: "🌿" },
-  { mode: "kpop", label: "福相フェイス", description: "福を呼ぶ、柔和でまろやかな相に", emoji: "🍑" },
-  { mode: "model", label: "龍相フェイス", description: "出世運をまとう、凛々しい相に", emoji: "🐉" },
-  { mode: "clear", label: "清明相", description: "透明感と誠実さがにじむ相に", emoji: "💧" },
-  { mode: "business", label: "知将相", description: "知性と信頼を感じさせる相に", emoji: "🦉" },
-  { mode: "anime", label: "仙風相", description: "浮世離れした、神秘の相に", emoji: "🌙" },
-  { mode: "future", label: "三年後の開運顔", description: "運気が満ちた、未来のあなた", emoji: "🚀" },
-];

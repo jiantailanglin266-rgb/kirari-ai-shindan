@@ -21,14 +21,14 @@ import { FaqJsonLd } from "@/components/JsonLd";
 const STEPS = [
   { icon: Camera, title: "写真をアップ", desc: "自撮りでもOK。1枚あれば鑑定できます。" },
   { icon: Wand2, title: "AIが観相", desc: "顔の各パーツから運勢を読み解きます。" },
-  { icon: ScrollText, title: "運勢をレポート", desc: "開運アドバイスと開運フェイスまで。" },
+  { icon: ScrollText, title: "運勢をレポート", desc: "詳細運勢と開運アドバイスまで。" },
 ];
 
 const FEATURES = [
   { emoji: "🔮", title: "総合運勢スコア", desc: "8つの運をスコアで丸ごと可視化。" },
   { emoji: "🐉", title: "人相タイプ鑑定", desc: "あなたはどの人相？漢字で全12種。" },
   { emoji: "🌿", title: "開運アドバイス", desc: "髪型・眉・表情で運気を底上げ。" },
-  { emoji: "🚀", title: "開運フェイス生成", desc: "福相〜三年後の開運顔までAI生成。" },
+  { emoji: "⭐", title: "レア度＆出現率", desc: "人相タイプのレア度を判定。激レアを狙え。" },
   { emoji: "💗", title: "恋愛運・金運レポート", desc: "出会い運や結婚運・財運まで鑑定。" },
   { emoji: "🎴", title: "SNSシェアカード", desc: "そのまま映える鑑定結果カードを保存。" },
 ];
@@ -48,7 +48,7 @@ const BUZZ = [
   { icon: Share2, title: "SNSシェア", desc: "X・Instagram・TikTok・LINE対応" },
   { icon: Heart, title: "今日の運勢", desc: "毎日チェックしたくなる開運占い" },
   { icon: Gift, title: "ガチャ風ランク演出", desc: "結果が出る瞬間がいちばん盛り上がる" },
-  { icon: RefreshCw, title: "何度でも鑑定", desc: "別の運・開運フェイスで何度でも" },
+  { icon: RefreshCw, title: "何度でも鑑定", desc: "別の運・タイプで何度でも引き直せる" },
 ];
 
 export default function Home() {
@@ -149,7 +149,7 @@ export default function Home() {
               ぜんぶ無料。<span className="text-gradient">何回でも</span>鑑定OK
             </h2>
             <p className="mt-1 text-sm text-ink-soft">
-              総合運勢・詳細運勢・人相タイプ・開運アドバイス・開運フェイス・シェアカードまで、
+              総合運勢・詳細運勢・人相タイプ・恋愛運/金運・開運アドバイス・シェアカードまで、
               <br className="hidden sm:block" />
               登録もお金も不要。気になる運を何度でも占えます。
             </p>

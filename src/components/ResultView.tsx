@@ -8,7 +8,6 @@ import { RefreshCw, Trash2, Rocket, Sparkles, Star } from "lucide-react";
 import type { DiagnosisResult } from "@/types/diagnosis";
 import {
   loadResult,
-  loadImage,
   saveResult,
   resetAll,
   deleteUploadedImage,
@@ -22,7 +21,6 @@ import { RadarChart } from "@/components/RadarChart";
 import { ScoreBar } from "@/components/ScoreBar";
 import { MotetypeCard } from "@/components/MotetypeCard";
 import { BeautyAdviceCard } from "@/components/BeautyAdviceCard";
-import { BeautyStudio } from "@/components/BeautyStudio";
 import { ShareResultCard } from "@/components/ShareResultCard";
 import { CTAButton } from "@/components/CTAButton";
 import { Button } from "@/components/ui/button";
@@ -56,7 +54,6 @@ export function ResultView({
 }) {
   const router = useRouter();
   const [result, setResult] = useState<DiagnosisResult | null>(null);
-  const [beforeImage, setBeforeImage] = useState<string>("/mock/beauty-natural.svg");
   const [shared, setShared] = useState(false);
   const [imageDeleted, setImageDeleted] = useState(false);
 
@@ -83,8 +80,6 @@ export function ResultView({
       saveResult(r);
     }
     setResult(r);
-    const img = loadImage();
-    if (img) setBeforeImage(img);
   }, [fallbackTypeSlug]);
 
   function reDiagnose() {
@@ -102,7 +97,6 @@ export function ResultView({
 
   function handleDeleteImage() {
     deleteUploadedImage();
-    setBeforeImage("/mock/beauty-natural.svg");
     setImageDeleted(true);
   }
 
@@ -192,9 +186,6 @@ export function ResultView({
 
       {/* 開運アドバイス */}
       <BeautyAdviceCard result={result} />
-
-      {/* 開運フェイス スタジオ */}
-      <BeautyStudio result={result} beforeImage={beforeImage} />
 
       {/* シェアカード */}
       <Card>
