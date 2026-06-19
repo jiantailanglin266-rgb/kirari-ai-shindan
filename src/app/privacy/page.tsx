@@ -5,12 +5,13 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { Card } from "@/components/ui/card";
 import { LegalSection } from "@/components/LegalSection";
+import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "プライバシーポリシー",
   description:
     "人相鑑定 NEONのプライバシーポリシー。アップロード画像の取り扱い・保存・削除と、安全への配慮について。",
-  alternates: { canonical: "/privacy" },
+  alternates: { canonical: `${SITE.url}/privacy` },
 };
 
 export default function PrivacyPage() {

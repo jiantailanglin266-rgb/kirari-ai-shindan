@@ -3,12 +3,13 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { UploadBox } from "@/components/UploadBox";
+import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "写真をアップロード",
   description:
-    "顔写真をアップロード／撮影して、AI人相鑑定をはじめましょう。登録不要・1日1回無料。重視する運（恋愛運・金運・総合運）も選べます。",
-  alternates: { canonical: "/upload" },
+    "顔写真をアップロード／撮影して、AI人相鑑定をはじめましょう。完全無料・登録不要・何回でもOK。重視する運（恋愛運・金運・総合運）も選べます。",
+  alternates: { canonical: `${SITE.url}/upload` },
 };
 
 export default function UploadPage() {

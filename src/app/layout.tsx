@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     "観相",
     "人相鑑定",
   ],
-  alternates: { canonical: "/" },
+  alternates: { canonical: `${SITE.url}/` },
   openGraph: {
     type: "website",
     siteName: SITE.name,

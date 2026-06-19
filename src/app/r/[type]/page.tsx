@@ -30,7 +30,7 @@ export async function generateMetadata({
     description,
     // 結果ページは検索インデックスしない（OGスクレイプは別途許可される）
     robots: { index: false, follow: true },
-    alternates: { canonical: `/r/${ft.slug}` },
+    alternates: { canonical: `${SITE.url}/r/${ft.slug}` },
     openGraph: {
       type: "website",
       siteName: SITE.name,
